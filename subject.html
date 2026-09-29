@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Subject - StudentHub4U</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            <span>Student</span>Hub4U
+        </div>
+
+        <a href="class9.html" class="back-link">
+            ← Class 9
+        </a>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <section class="boards-section class-page">
+
+            <div class="section-heading">
+
+                <span id="boardName">
+                    BIHAR BOARD
+                </span>
+
+                <h2 id="subjectName">
+                    Subject
+                </h2>
+
+                <p>
+                    अपनी पढ़ाई का option चुनें
+                </p>
+
+            </div>
+
+
+            <!-- OPTIONS -->
+            <div class="subject-options">
+
+
+                <!-- NOTES -->
+                <a href="#"
+                   id="notesLink"
+                   class="subject-option">
+
+                    <div class="option-number">
+                        01
+                    </div>
+
+                    <div class="option-content">
+
+                        <h3>Notes</h3>
+
+                        <p>
+                            Chapter-wise Notes और Study Material
+                        </p>
+
+                    </div>
+
+                    <div class="option-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- PDF -->
+                <a href="#"
+                   onclick="comingSoon(event)"
+                   class="subject-option">
+
+                    <div class="option-number">
+                        02
+                    </div>
+
+                    <div class="option-content">
+
+                        <h3>PDF</h3>
+
+                        <p>
+                            Study Material और जरूरी PDFs
+                        </p>
+
+                    </div>
+
+                    <div class="option-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- PYQ -->
+                <a href="#"
+                   onclick="comingSoon(event)"
+                   class="subject-option">
+
+                    <div class="option-number">
+                        03
+                    </div>
+
+                    <div class="option-content">
+
+                        <h3>PYQ</h3>
+
+                        <p>
+                            Previous Year Questions
+                        </p>
+
+                    </div>
+
+                    <div class="option-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+                <!-- MODEL PAPER -->
+                <a href="#"
+                   onclick="comingSoon(event)"
+                   class="subject-option">
+
+                    <div class="option-number">
+                        04
+                    </div>
+
+                    <div class="option-content">
+
+                        <h3>Model Paper</h3>
+
+                        <p>
+                            Bihar Board Model Papers
+                        </p>
+
+                    </div>
+
+                    <div class="option-arrow">
+                        →
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        // URL से Subject लेना
+        const params =
+            new URLSearchParams(window.location.search);
+
+        const subjectFromURL =
+            params.get("subject");
+
+
+        // Subject save करना
+        if (subjectFromURL) {
+
+            localStorage.setItem(
+                "selectedSubject",
+                subjectFromURL
+            );
+
+        }
+
+
+        // Saved Subject
+        const subject =
+            localStorage.getItem("selectedSubject");
+
+
+        // Board
+        const board =
+            localStorage.getItem("selectedBoard");
+
+
+        // Board दिखाना
+        if (board) {
+
+            document.getElementById(
+                "boardName"
+            ).textContent =
+                board.toUpperCase();
+
+        }
+
+
+        // Subject दिखाना
+        if (subject) {
+
+            document.getElementById(
+                "subjectName"
+            ).textContent =
+                subject;
+
+        }
+
+
+        // -----------------------------
+        // NOTES LINK AUTOMATIC
+        // -----------------------------
+
+        if (subject) {
+
+            document.getElementById(
+                "notesLink"
+            ).href =
+                "notes-subject.html?subject=" +
+                encodeURIComponent(subject);
+
+        }
+
+
+        // -----------------------------
+        // COMING SOON
+        // -----------------------------
+
+        function comingSoon(event) {
+
+            event.preventDefault();
+
+            alert(
+                "Coming Soon!\n\n" +
+                "Ye section abhi develop ho raha hai."
+            );
+
+        }
+
+    </script>
+
+
+    <style>
+
+        /* SUBJECT OPTIONS */
+
+        .subject-options {
+
+            width: 100%;
+            max-width: 900px;
+
+            margin: 35px auto 60px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 16px;
+
+        }
+
+
+        .subject-option {
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            min-height: 95px;
+
+            padding: 20px 25px;
+
+            text-decoration: none;
+
+            color: #ffffff;
+
+            background:
+                rgba(12, 12, 15, 0.88);
+
+            border:
+                1px solid
+                rgba(255, 30, 45, 0.22);
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+
+        }
+
+
+        .subject-option:hover {
+
+            transform: translateX(7px);
+
+            border-color:
+                rgba(255, 30, 45, 0.8);
+
+            box-shadow:
+                0 0 20px
+                rgba(255, 30, 45, 0.12);
+
+        }
+
+
+        .option-number {
+
+            min-width: 55px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            color: #ff1e2d;
+
+        }
+
+
+        .option-content {
+
+            flex: 1;
+
+        }
+
+
+        .option-content h3 {
+
+            margin:
+                0 0 6px;
+
+            font-size: 21px;
+
+        }
+
+
+        .option-content p {
+
+            margin: 0;
+
+            color: #a7a7a7;
+
+            font-size: 14px;
+
+        }
+
+
+        .option-arrow {
+
+            font-size: 25px;
+
+            color: #ff1e2d;
+
+            margin-left: 15px;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .subject-option {
+
+                min-height: 85px;
+
+                padding: 16px;
+
+            }
+
+
+            .option-content h3 {
+
+                font-size: 18px;
+
+            }
+
+
+            .option-content p {
+
+                font-size: 13px;
+
+            }
+
+
+            .option-number {
+
+                min-width: 45px;
+
+            }
+
+        }
+
+    </style>
+
+</body>
+
+</html>

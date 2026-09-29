@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bihar Board - StudentHub4U</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #050505;
+            color: white;
+        }
+
+        .board-page {
+            min-height: 100vh;
+            padding: 40px 20px;
+            background:
+                radial-gradient(circle at top, rgba(255, 0, 0, 0.18), transparent 35%),
+                #050505;
+        }
+
+        .back-btn {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            border: 1px solid #444;
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            border-color: #ff2020;
+            color: #ff3030;
+        }
+
+        .board-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .board-header h1 {
+            font-size: 42px;
+            margin: 0 0 10px;
+            color: white;
+        }
+
+        .board-header h1 span {
+            color: #ff2020;
+        }
+
+        .board-header p {
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .class-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .class-card {
+            position: relative;
+            padding: 35px 25px;
+            min-height: 170px;
+
+            background: linear-gradient(
+                145deg,
+                #171717,
+                #090909
+            );
+
+            border: 1px solid #292929;
+            border-radius: 16px;
+
+            text-decoration: none;
+            color: white;
+
+            overflow: hidden;
+            transition: 0.35s ease;
+        }
+
+        .class-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: #ff2020;
+            transition: 0.5s;
+        }
+
+        .class-card:hover::before {
+            left: 0;
+        }
+
+        .class-card:hover {
+            transform: translateY(-7px);
+            border-color: #ff2020;
+            box-shadow:
+                0 0 20px rgba(255, 0, 0, 0.18),
+                inset 0 0 20px rgba(255, 0, 0, 0.03);
+        }
+
+        .class-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ff2020;
+            margin-bottom: 12px;
+        }
+
+        .class-card h2 {
+            margin: 0 0 8px;
+            font-size: 23px;
+        }
+
+        .class-card p {
+            margin: 0;
+            color: #999;
+            line-height: 1.5;
+        }
+
+        .arrow {
+            position: absolute;
+            right: 25px;
+            bottom: 25px;
+            font-size: 25px;
+            color: #ff2020;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 55px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .board-page {
+                padding: 25px 15px;
+            }
+
+            .board-header h1 {
+                font-size: 32px;
+            }
+
+            .class-container {
+                grid-template-columns: 1fr;
+            }
+
+            .class-card {
+                min-height: 145px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="board-page">
+
+        <a href="index.html" class="back-btn">
+            ← Back to Home
+        </a>
+
+        <section class="board-header">
+
+            <h1>
+                Bihar <span>Board</span>
+            </h1>
+
+            <p>
+                Select your class and start your learning journey
+            </p>
+
+        </section>
+
+
+        <section class="class-container">
+
+            <!-- CLASS 9 -->
+
+            <a href="class9.html" class="class-card">
+
+                <div class="class-number">
+                    09
+                </div>
+
+                <h2>
+                    Class 9
+                </h2>
+
+                <p>
+                    Notes, PDF, PYQ, Modern Papers & Quiz
+                </p>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <!-- CLASS 10 -->
+
+            <a href="class10.html" class="class-card">
+
+                <div class="class-number">
+                    10
+                </div>
+
+                <h2>
+                    Class 10
+                </h2>
+
+                <p>
+                    Notes, PDF, PYQ, Modern Papers & Quiz
+                </p>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <!-- CLASS 11 -->
+
+            <a href="class11.html" class="class-card">
+
+                <div class="class-number">
+                    11
+                </div>
+
+                <h2>
+                    Class 11
+                </h2>
+
+                <p>
+                    Study material and learning resources
+                </p>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+
+            <!-- CLASS 12 -->
+
+            <a href="class12.html" class="class-card">
+
+                <div class="class-number">
+                    12
+                </div>
+
+                <h2>
+                    Class 12
+                </h2>
+
+                <p>
+                    Study material and learning resources
+                </p>
+
+                <div class="arrow">
+                    →
+                </div>
+
+            </a>
+
+        </section>
+
+
+        <div class="footer-note">
+            © 2026 StudentHub4U • Bihar Board
+        </div>
+
+    </main>
+
+</body>
+</html>

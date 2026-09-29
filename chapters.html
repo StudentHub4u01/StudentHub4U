@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Chapters - StudentHub4U</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span>Student</span>Hub4U
+        </div>
+
+        <a
+            href="class9.html"
+            class="back-link"
+        >
+            ← Class 9
+        </a>
+
+    </header>
+
+
+
+    <!-- CHAPTER SECTION -->
+
+    <main>
+
+        <section class="boards-section board-page">
+
+            <div class="section-heading">
+
+                <span id="boardName">
+                    STUDENTHUB4U
+                </span>
+
+                <h2 id="subjectName">
+                    विषय
+                </h2>
+
+                <p>
+                    अपना अध्याय चुनें और Chapter-wise Quiz दें।
+                </p>
+
+            </div>
+
+
+            <div
+                class="features-grid"
+                id="chapterContainer"
+            >
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+        // =========================
+        // BOARD
+        // =========================
+
+        const board =
+            localStorage.getItem("selectedBoard");
+
+        if (board) {
+
+            document.getElementById(
+                "boardName"
+            ).textContent = board.toUpperCase();
+
+        }
+
+
+
+        // =========================
+        // SUBJECT
+        // =========================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const urlSubject =
+            urlParams.get("subject");
+
+        const savedSubject =
+            localStorage.getItem("selectedSubject");
+
+        const subject =
+            urlSubject || savedSubject || "";
+
+
+
+        if (subject) {
+
+            document.getElementById(
+                "subjectName"
+            ).textContent = subject;
+
+        }
+
+
+
+        // =========================
+        // CLASS 9 CHAPTERS
+        // =========================
+
+        const chapters = {
+
+
+            // =========================
+            // MATHEMATICS
+            // =========================
+
+            "Mathematics": [
+
+                "संख्या पद्धति",
+
+                "बहुपद",
+
+                "निर्देशांक ज्यामिति",
+
+                "दो चरों वाले रैखिक समीकरण",
+
+                "यूक्लिड की ज्यामिति का परिचय",
+
+                "रेखाएँ और कोण",
+
+                "त्रिभुज",
+
+                "चतुर्भुज",
+
+                "वृत्त",
+
+                "हीरोन का सूत्र",
+
+                "पृष्ठीय क्षेत्रफल और आयतन",
+
+                "सांख्यिकी"
+
+            ],
+
+
+
+            // =========================
+            // SCIENCE
+            // =========================
+
+            "Science": [
+
+                "हमारे आस-पास के पदार्थ",
+
+                "क्या हमारे आस-पास के पदार्थ शुद्ध हैं?",
+
+                "परमाणु एवं अणु",
+
+                "परमाणु की संरचना",
+
+                "जीवन की मौलिक इकाई — कोशिका",
+
+                "ऊतक",
+
+                "गति",
+
+                "बल तथा गति के नियम",
+
+                "गुरुत्वाकर्षण",
+
+                "कार्य तथा ऊर्जा",
+
+                "ध्वनि",
+
+                "खाद्य संसाधनों में सुधार"
+
+            ],
+
+
+
+            // =========================
+            // SOCIAL SCIENCE
+            // =========================
+
+            "Social Science": [
+
+                "भारत — आकार और स्थिति",
+
+                "भारत के भौतिक स्वरूप",
+
+                "अपवाह",
+
+                "जलवायु",
+
+                "प्राकृतिक वनस्पति तथा वन्य प्राणी",
+
+                "जनसंख्या",
+
+                "लोकतंत्र क्या है?",
+
+                "संवैधानिक डिजाइन",
+
+                "चुनावी राजनीति",
+
+                "संस्थाओं का कामकाज",
+
+                "लोकतांत्रिक अधिकार",
+
+                "फ्रांसीसी क्रांति",
+
+                "यूरोप में समाजवाद और रूसी क्रांति",
+
+                "नात्सीवाद और हिटलर का उदय"
+
+            ],
+
+
+
+            // =========================
+            // HINDI
+            // =========================
+
+            "Hindi": [
+
+                "दो बैलों की कथा",
+
+                "ल्हासा की ओर",
+
+                "उपभोक्तावाद की संस्कृति",
+
+                "साँवले सपनों की याद",
+
+                "नाना साहब की पुत्री देवी मैना को भस्म कर दिया गया",
+
+                "प्रेमचंद के फटे जूते",
+
+                "मेरे बचपन के दिन",
+
+                "एक कुत्ता और एक मैना",
+
+                "साखियाँ एवं सबद",
+
+                "वाख",
+
+                "सवैये",
+
+                "कैदी और कोकिला",
+
+                "ग्राम श्री",
+
+                "चंद्र गहना से लौटती बेर",
+
+                "मेघ आए",
+
+                "यमराज की दिशा",
+
+                "बच्चे काम पर जा रहे हैं"
+
+            ],
+
+
+
+            // =========================
+            // ENGLISH
+            // =========================
+
+            "English": [
+
+                "The Fun They Had",
+
+                "The Sound of Music",
+
+                "The Little Girl",
+
+                "A Truly Beautiful Mind",
+
+                "The Snake and the Mirror",
+
+                "My Childhood",
+
+                "Reach for the Top",
+
+                "Kathmandu",
+
+                "If I Were You",
+
+                "The Lost Child",
+
+                "The Adventures of Toto",
+
+                "Iswaran the Storyteller",
+
+                "In the Kingdom of Fools",
+
+                "The Happy Prince",
+
+                "Weathering the Storm in Ersama",
+
+                "The Last Leaf",
+
+                "A House Is Not a Home",
+
+                "The Beggar"
+
+            ],
+
+
+
+            // =========================
+            // COMPUTER
+            // =========================
+
+            "Computer": [
+
+                "कंप्यूटर का परिचय",
+
+                "कंप्यूटर की मूल बातें",
+
+                "कंप्यूटर के प्रमुख भाग",
+
+                "इनपुट और आउटपुट उपकरण",
+
+                "मेमोरी और स्टोरेज",
+
+                "ऑपरेटिंग सिस्टम",
+
+                "फाइल और फोल्डर प्रबंधन",
+
+                "इंटरनेट का परिचय",
+
+                "वेब ब्राउज़र और सर्च इंजन",
+
+                "ई-मेल",
+
+                "साइबर सुरक्षा",
+
+                "डिजिटल सुरक्षा और गोपनीयता"
+
+            ]
+
+        };
+
+
+
+        // =========================
+        // SHOW CHAPTERS
+        // =========================
+
+        const chapterContainer =
+            document.getElementById(
+                "chapterContainer"
+            );
+
+
+        const selectedChapters =
+            chapters[subject] || [];
+
+
+        selectedChapters.forEach(
+            function(chapter, index) {
+
+                const card =
+                    document.createElement("a");
+
+
+                card.className =
+                    "feature-card subject-card";
+
+
+                card.href =
+                    "quiz.html?subject=" +
+                    encodeURIComponent(subject) +
+                    "&chapter=" +
+                    encodeURIComponent(chapter);
+
+
+                card.innerHTML = `
+
+                    <div class="feature-number">
+
+                        ${String(index + 1).padStart(2, "0")}
+
+                    </div>
+
+                    <h3>
+
+                        ${chapter}
+
+                    </h3>
+
+                    <p>
+
+                        Chapter Study & Quiz
+
+                    </p>
+
+                `;
+
+
+                chapterContainer.appendChild(card);
+
+            }
+        );
+
+
+        // =========================
+        // NO CHAPTER
+        // =========================
+
+        if (selectedChapters.length === 0) {
+
+            chapterContainer.innerHTML = `
+
+                <div class="feature-card">
+
+                    <h3>
+                        अध्याय उपलब्ध नहीं है
+                    </h3>
+
+                    <p>
+                        इस विषय के अध्याय अभी जोड़े नहीं गए हैं।
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

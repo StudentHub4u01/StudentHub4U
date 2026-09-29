@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Class 10 - StudentHub4U</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <span>Student</span>Hub4U
+
+        </div>
+
+
+        <a
+            href="board.html"
+            class="back-link"
+        >
+            ← Boards
+        </a>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="boards-section class-page">
+
+
+            <!-- HEADING -->
+
+            <div class="section-heading">
+
+                <span id="selectedBoard">
+                    STUDENTHUB4U
+                </span>
+
+
+                <h2>
+                    Class 10
+                </h2>
+
+
+                <p>
+                    अपना विषय चुनें और आगे पढ़ाई शुरू करें।
+                </p>
+
+            </div>
+
+
+
+            <!-- SUBJECTS -->
+
+            <div class="subject-grid">
+
+
+                <!-- HINDI -->
+
+                <a
+                    href="chapters10.html?subject=Hindi"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        हिं
+                    </div>
+
+
+                    <h3>
+                        Hindi
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- ENGLISH -->
+
+                <a
+                    href="chapters10.html?subject=English"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        EN
+                    </div>
+
+
+                    <h3>
+                        English
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- MATHEMATICS -->
+
+                <a
+                    href="chapters10.html?subject=Mathematics"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        M
+                    </div>
+
+
+                    <h3>
+                        Mathematics
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- SCIENCE -->
+
+                <a
+                    href="chapters10.html?subject=Science"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        S
+                    </div>
+
+
+                    <h3>
+                        Science
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- SOCIAL SCIENCE -->
+
+                <a
+                    href="chapters10.html?subject=Social%20Science"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        SS
+                    </div>
+
+
+                    <h3>
+                        Social Science
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- COMPUTER -->
+
+                <a
+                    href="chapters10.html?subject=Computer"
+                    class="subject-card"
+                >
+
+                    <div class="subject-icon">
+                        C
+                    </div>
+
+
+                    <h3>
+                        Computer
+                    </h3>
+
+
+                    <p>
+                        Chapters & Quiz
+                    </p>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- BOARD NAME -->
+
+    <script>
+
+        const board =
+            localStorage.getItem("selectedBoard");
+
+
+        if (board) {
+
+            document.getElementById(
+                "selectedBoard"
+            ).textContent = board.toUpperCase();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

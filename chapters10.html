@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Class 10 Chapters - StudentHub4U</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            <span>Student</span>Hub4U
+        </div>
+
+
+        <a
+            href="class10.html"
+            class="back-link"
+        >
+            ← Class 10
+        </a>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+
+    <main>
+
+        <section class="boards-section board-page">
+
+
+            <!-- HEADING -->
+
+            <div class="section-heading">
+
+                <span id="boardName">
+                    STUDENTHUB4U
+                </span>
+
+
+                <h2 id="subjectName">
+                    विषय
+                </h2>
+
+
+                <p>
+                    अपना अध्याय चुनें और Chapter-wise Quiz दें।
+                </p>
+
+            </div>
+
+
+
+            <!-- CHAPTERS -->
+
+            <div
+                class="features-grid"
+                id="chapterContainer"
+            >
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+
+        // =========================
+        // BOARD
+        // =========================
+
+        const board =
+            localStorage.getItem("selectedBoard");
+
+
+        if (board) {
+
+            document.getElementById(
+                "boardName"
+            ).textContent =
+                board.toUpperCase();
+
+        }
+
+
+
+        // =========================
+        // SUBJECT
+        // =========================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const subject =
+            urlParams.get("subject") || "";
+
+
+
+        if (subject) {
+
+            document.getElementById(
+                "subjectName"
+            ).textContent =
+                subject;
+
+        }
+
+
+
+        // =========================
+        // CLASS 10 CHAPTERS
+        // =========================
+
+        const chapters = {
+
+
+            // =========================
+            // MATHEMATICS
+            // =========================
+
+            "Mathematics": [
+
+                "वास्तविक संख्याएँ",
+
+                "बहुपद",
+
+                "दो चर वाले रैखिक समीकरण युग्म",
+
+                "द्विघात समीकरण",
+
+                "समांतर श्रेढ़ियाँ",
+
+                "त्रिभुज",
+
+                "निर्देशांक ज्यामिति",
+
+                "त्रिकोणमिति का परिचय",
+
+                "त्रिकोणमिति के कुछ अनुप्रयोग",
+
+                "वृत्त",
+
+                "वृत्तों से संबंधित क्षेत्रफल",
+
+                "पृष्ठीय क्षेत्रफल और आयतन",
+
+                "सांख्यिकी",
+
+                "प्रायिकता"
+
+            ],
+
+
+
+            // =========================
+            // SCIENCE
+            // =========================
+
+            "Science": [
+
+                "रासायनिक अभिक्रियाएँ एवं समीकरण",
+
+                "अम्ल, क्षारक एवं लवण",
+
+                "धातु एवं अधातु",
+
+                "कार्बन एवं उसके यौगिक",
+
+                "तत्वों का आवर्त वर्गीकरण",
+
+                "जैव प्रक्रम",
+
+                "नियंत्रण एवं समन्वय",
+
+                "जीव जनन कैसे करते हैं?",
+
+                "आनुवंशिकता",
+
+                "प्रकाश — परावर्तन तथा अपवर्तन",
+
+                "मानव नेत्र तथा रंगबिरंगा संसार",
+
+                "विद्युत",
+
+                "विद्युत का चुंबकीय प्रभाव",
+
+                "हमारा पर्यावरण"
+
+            ],
+
+
+
+            // =========================
+            // SOCIAL SCIENCE
+            // =========================
+
+            "Social Science": [
+
+                "यूरोप में राष्ट्रवाद का उदय",
+
+                "भारत में राष्ट्रवाद",
+
+                "भूमंडलीकृत विश्व का बनना",
+
+                "औद्योगीकरण का युग",
+
+                "मुद्रण संस्कृति और आधुनिक दुनिया",
+
+                "संसाधन एवं विकास",
+
+                "वन एवं वन्य जीव संसाधन",
+
+                "जल संसाधन",
+
+                "कृषि",
+
+                "खनिज तथा ऊर्जा संसाधन",
+
+                "विनिर्माण उद्योग",
+
+                "खनिज तेल और प्राकृतिक गैस",
+
+                "विकास",
+
+                "भारतीय अर्थव्यवस्था के क्षेत्रक",
+
+                "मुद्रा और साख",
+
+                "वैश्वीकरण और भारतीय अर्थव्यवस्था",
+
+                "उपभोक्ता अधिकार",
+
+                "सत्ता की साझेदारी",
+
+                "संघवाद",
+
+                "जाति, धर्म और लैंगिक मसले",
+
+                "राजनीतिक दल",
+
+                "लोकतंत्र के परिणाम",
+
+                "लोकतंत्र की चुनौतियाँ"
+            ],
+
+
+
+            // =========================
+            // HINDI
+            // =========================
+
+            "Hindi": [
+
+                "सूरदास",
+
+                "राम-लक्ष्मण-परशुराम संवाद",
+
+                "आत्मकथ्य",
+
+                "उत्साह और अट नहीं रही है",
+
+                "यह दंतुरित मुस्कान और फसल",
+
+                "संगतकार",
+
+                "नेताजी का चश्मा",
+
+                "बालगोबिन भगत",
+
+                "लखनवी अंदाज़",
+
+                "मानवीय करुणा की दिव्य चमक",
+
+                "एक कहानी यह भी",
+
+                "स्त्री शिक्षा के विरोधी कुतर्कों का खंडन",
+
+                "नौबतखाने में इबादत",
+
+                "संस्कृति"
+            ],
+
+
+
+            // =========================
+            // ENGLISH
+            // =========================
+
+            "English": [
+
+                "A Letter to God",
+
+                "Nelson Mandela: Long Walk to Freedom",
+
+                "Two Stories about Flying",
+
+                "From the Diary of Anne Frank",
+
+                "Glimpses of India",
+
+                "Mijbil the Otter",
+
+                "Madam Rides the Bus",
+
+                "The Sermon at Benares",
+
+                "The Proposal",
+
+                "Dust of Snow",
+
+                "Fire and Ice",
+
+                "A Tiger in the Zoo",
+
+                "How to Tell Wild Animals",
+
+                "The Ball Poem",
+
+                "Amanda!",
+
+                "Animals",
+
+                "The Trees",
+
+                "Fog",
+
+                "The Tale of Custard the Dragon",
+
+                "For Anne Gregory"
+            ],
+
+
+
+            // =========================
+            // COMPUTER
+            // =========================
+
+            "Computer": [
+
+                "कंप्यूटर का परिचय",
+
+                "कंप्यूटर की मूल बातें",
+
+                "कंप्यूटर नेटवर्क",
+
+                "इंटरनेट",
+
+                "वेब ब्राउज़र",
+
+                "ई-मेल",
+
+                "डिजिटल संचार",
+
+                "साइबर सुरक्षा",
+
+                "डिजिटल सुरक्षा और गोपनीयता",
+
+                "HTML का परिचय",
+
+                "वेब पेज निर्माण",
+
+                "डेटा और सूचना"
+            ]
+
+        };
+
+
+
+        // =========================
+        // SHOW CHAPTERS
+        // =========================
+
+        const chapterContainer =
+            document.getElementById(
+                "chapterContainer"
+            );
+
+
+        const selectedChapters =
+            chapters[subject] || [];
+
+
+
+        selectedChapters.forEach(
+            function(chapter, index) {
+
+
+                const card =
+                    document.createElement("a");
+
+
+                card.className =
+                    "feature-card subject-card";
+
+
+                card.href =
+                    "quiz10.html?subject=" +
+                    encodeURIComponent(subject) +
+                    "&chapter=" +
+                    encodeURIComponent(chapter);
+
+
+
+                card.innerHTML = `
+
+                    <div class="feature-number">
+
+                        ${String(index + 1).padStart(2, "0")}
+
+                    </div>
+
+
+                    <h3>
+
+                        ${chapter}
+
+                    </h3>
+
+
+                    <p>
+
+                        Chapter Study & Quiz
+
+                    </p>
+
+                `;
+
+
+                chapterContainer.appendChild(card);
+
+            }
+        );
+
+
+
+        // =========================
+        // NO CHAPTER
+        // =========================
+
+        if (
+            selectedChapters.length === 0
+        ) {
+
+            chapterContainer.innerHTML = `
+
+                <div class="feature-card">
+
+                    <h3>
+                        अध्याय उपलब्ध नहीं है
+                    </h3>
+
+                    <p>
+                        इस विषय के अध्याय अभी जोड़े नहीं गए हैं।
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

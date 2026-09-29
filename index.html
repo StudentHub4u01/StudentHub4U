@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="StudentHub4U - Bihar Board students ke liye premium study platform."
+    >
+
+    <title>StudentHub4U</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* =====================================================
+           LANGUAGE POPUP
+        ====================================================== */
+
+        .language-popup {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(12px);
+            z-index: 99999;
+        }
+
+        .language-popup.active {
+            display: flex;
+            animation: languageFade 0.25s ease;
+        }
+
+        @keyframes languageFade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .language-popup-box {
+            position: relative;
+            width: 100%;
+            max-width: 520px;
+            max-height: 88vh;
+            overflow: hidden;
+
+            padding: 30px;
+
+            border: 1px solid rgba(0, 170, 255, 0.25);
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111317,
+                    #06080b
+                );
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.75),
+                0 0 35px rgba(0, 170, 255, 0.08);
+
+            transform: scale(0.94);
+            animation: languageBoxOpen 0.3s ease forwards;
+        }
+
+        @keyframes languageBoxOpen {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .language-close {
+            position: absolute;
+            top: 14px;
+            right: 15px;
+
+            width: 36px;
+            height: 36px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.06);
+            color: white;
+
+            font-size: 22px;
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+        .language-close:hover {
+            background: rgba(255, 50, 60, 0.15);
+            color: #ff4757;
+            transform: rotate(90deg);
+        }
+
+        .language-small-title {
+            color: #00aaff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 4px;
+        }
+
+        .language-popup-box h2 {
+            margin: 8px 0;
+            color: white;
+            font-size: 27px;
+        }
+
+        .language-popup-box > p {
+            margin-bottom: 18px;
+            color: #858990;
+            font-size: 13px;
+        }
+
+        /* SEARCH */
+
+        .language-search {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px 15px;
+
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 13px;
+
+            outline: none;
+
+            background: rgba(255,255,255,0.045);
+            color: white;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+        .language-search::placeholder {
+            color: #777d85;
+        }
+
+        .language-search:focus {
+            border-color: rgba(0,170,255,0.55);
+            box-shadow: 0 0 18px rgba(0,170,255,0.08);
+        }
+
+        /* LANGUAGE LIST */
+
+        .language-options {
+            display: grid;
+            gap: 10px;
+
+            max-height: 52vh;
+            overflow-y: auto;
+
+            padding-right: 4px;
+        }
+
+        .language-options::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .language-options::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .language-options::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.18);
+            border-radius: 20px;
+        }
+
+        .language-option {
+            position: relative;
+
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px;
+
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.025);
+
+            color: white;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .language-option:hover {
+            transform: translateX(4px);
+
+            border-color: rgba(0,170,255,0.4);
+
+            background: rgba(0,170,255,0.06);
+
+            box-shadow:
+                0 0 18px rgba(0,170,255,0.07);
+        }
+
+        .language-option.selected {
+            border-color: #00aaff;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0,170,255,0.10),
+                    rgba(0,170,255,0.03)
+                );
+
+            box-shadow:
+                0 0 20px rgba(0,170,255,0.10);
+        }
+
+        .language-icon {
+            width: 40px;
+            height: 40px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: rgba(255,255,255,0.06);
+
+            font-size: 19px;
+        }
+
+        .language-name {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 3px;
+        }
+
+        .language-name strong {
+            color: white;
+            font-size: 14px;
+        }
+
+        .language-name small {
+            color: #777d85;
+            font-size: 11px;
+        }
+
+        .language-check {
+            color: #00aaff;
+            font-size: 18px;
+            font-weight: bold;
+
+            opacity: 0;
+
+            transition: 0.25s ease;
+        }
+
+        .language-option.selected .language-check {
+            opacity: 1;
+        }
+
+        .language-empty {
+            display: none;
+
+            padding: 25px;
+
+            text-align: center;
+
+            color: #777d85;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           EXTRA SETTINGS
+        ====================================================== */
+
+        .extra-settings {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .extra-setting-card {
+            position: relative;
+
+            width: 100%;
+            min-height: 68px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 13px 15px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(22,23,26,0.96),
+                    rgba(9,10,12,0.96)
+                );
+
+            color: white;
+
+            cursor: pointer;
+            text-align: left;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .extra-setting-card:hover {
+            transform: translateX(5px);
+
+            border-color:
+                rgba(255,255,255,0.30);
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.45);
+        }
+
+        .extra-setting-icon {
+            width: 39px;
+            height: 39px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: rgba(255,255,255,0.06);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            font-size: 17px;
+        }
+
+        .extra-setting-content {
+            min-width: 0;
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+        .extra-setting-content strong {
+            font-size: 14px;
+            color: #f4f4f4;
+        }
+
+        .extra-setting-content small {
+            font-size: 11px;
+            line-height: 1.4;
+            color: #858990;
+        }
+
+        .extra-setting-arrow {
+            color: #8e9399;
+            font-size: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
+            .language-popup {
+                padding: 12px;
+            }
+
+            .language-popup-box {
+                padding: 25px 17px;
+                border-radius: 18px;
+            }
+
+            .language-popup-box h2 {
+                font-size: 23px;
+            }
+
+            .language-options {
+                max-height: 55vh;
+            }
+
+            .extra-setting-card {
+                min-height: 64px;
+                padding: 11px 12px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <button
+            class="menu-btn"
+            id="menuButton"
+            type="button"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+        <div class="logo">
+            <span>Student</span>Hub4U
+        </div>
+
+        <nav class="navbar">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#boards">
+                Bihar Board
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#support">
+                Support
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         MENU OVERLAY
+    ====================================================== -->
+
+    <div
+        class="menu-overlay"
+        id="menuOverlay"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDE MENU
+    ====================================================== -->
+
+    <aside
+        class="side-menu"
+        id="sideMenu"
+    >
+
+        <div class="side-menu-header">
+
+            <div class="side-logo">
+                <span>Student</span>Hub4U
+            </div>
+
+            <button
+                class="close-btn"
+                id="closeButton"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="side-menu-links">
+
+            <a
+                href="#home"
+                class="side-link"
+            >
+                <span class="side-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+
+            <a
+                href="#boards"
+                class="side-link"
+            >
+                <span class="side-icon">▣</span>
+                <span>Bihar Board</span>
+            </a>
+
+
+            <a
+                href="#features"
+                class="side-link"
+            >
+                <span class="side-icon">◈</span>
+                <span>Study Features</span>
+            </a>
+
+
+            <button
+                class="side-link side-button"
+                id="settingsButton"
+                type="button"
+            >
+                <span class="side-icon">⚙</span>
+
+                <span>
+                    Settings
+                </span>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             SETTINGS PANEL
+        ================================================== -->
+
+        <div
+            class="settings-panel"
+            id="settingsPanel"
+        >
+
+            <div class="settings-title">
+
+                <button
+                    class="settings-back"
+                    id="settingsBack"
+                    type="button"
+                >
+                    ←
+                </button>
+
+                <div>
+
+                    <span>
+                        SETTINGS
+                    </span>
+
+                    <h3>
+                        Website Settings
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- APPEARANCE -->
+
+            <div class="setting-box">
+
+                <div class="setting-heading">
+
+                    <span>
+                        Appearance
+                    </span>
+
+                    <small>
+                        Theme
+                    </small>
+
+                </div>
+
+
+                <div class="theme-buttons">
+
+                    <button
+                        id="darkMode"
+                        class="theme-btn active"
+                        type="button"
+                    >
+                        🌙 Dark
+                    </button>
+
+
+                    <button
+                        id="lightMode"
+                        class="theme-btn"
+                        type="button"
+                    >
+                        ☀ Light
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEXT SIZE -->
+
+            <div class="setting-box">
+
+                <div class="setting-heading">
+
+                    <span>
+                        Text Size
+                    </span>
+
+                    <small>
+                        Reading
+                    </small>
+
+                </div>
+
+
+                <div class="text-size-buttons">
+
+                    <button
+                        id="textSmall"
+                        type="button"
+                    >
+                        A
+                    </button>
+
+                    <button
+                        id="textNormal"
+                        class="active"
+                        type="button"
+                    >
+                        A
+                    </button>
+
+                    <button
+                        id="textLarge"
+                        type="button"
+                    >
+                        A
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXTRA SETTINGS -->
+
+            <div class="extra-settings">
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    class="extra-setting-card"
+                    type="button"
+                    onclick="settingComingSoon('Notifications')"
+                >
+
+                    <span class="extra-setting-icon">
+                        🔔
+                    </span>
+
+                    <span class="extra-setting-content">
+
+                        <strong>
+                            Notifications
+                        </strong>
+
+                        <small>
+                            Important exam updates aur notices
+                        </small>
+
+                    </span>
+
+                    <span class="extra-setting-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- LANGUAGE -->
+
+                <button
+                    class="extra-setting-card"
+                    type="button"
+                    id="languageSetting"
+                >
+
+                    <span class="extra-setting-icon">
+                        🌐
+                    </span>
+
+                    <span class="extra-setting-content">
+
+                        <strong>
+                            Language
+                        </strong>
+
+                        <small id="currentLanguageText">
+                            Hindi
+                        </small>
+
+                    </span>
+
+                    <span class="extra-setting-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- ABOUT -->
+
+                <button
+                    class="extra-setting-card"
+                    type="button"
+                    onclick="settingComingSoon('About StudentHub4U')"
+                >
+
+                    <span class="extra-setting-icon">
+                        ℹ
+                    </span>
+
+                    <span class="extra-setting-content">
+
+                        <strong>
+                            About StudentHub4U
+                        </strong>
+
+                        <small>
+                            Website aur platform ki information
+                        </small>
+
+                    </span>
+
+                    <span class="extra-setting-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- SUPPORT -->
+
+                <button
+                    class="extra-setting-card"
+                    type="button"
+                    onclick="settingComingSoon('Support & Help')"
+                >
+
+                    <span class="extra-setting-icon">
+                        💬
+                    </span>
+
+                    <span class="extra-setting-content">
+
+                        <strong>
+                            Support & Help
+                        </strong>
+
+                        <small>
+                            Help aur support ke liye
+                        </small>
+
+                    </span>
+
+                    <span class="extra-setting-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- RESET -->
+
+            <button
+                class="reset-settings"
+                id="resetSettings"
+                type="button"
+            >
+                Reset Settings
+            </button>
+
+
+            <div class="settings-info">
+
+                <span>
+                    STUDENTHUB4U
+                </span>
+
+                <p>
+                    Premium Bihar Board
+                    learning platform.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- MENU FOOTER -->
+
+        <div class="side-menu-footer">
+
+            <a
+                href="#support"
+                class="support-menu-link"
+            >
+                💬 Support
+            </a>
+
+            <p>
+                StudentHub4U
+            </p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         LANGUAGE POPUP
+    ====================================================== -->
+
+    <div
+        class="language-popup"
+        id="languagePopup"
+    >
+
+        <div class="language-popup-box">
+
+            <button
+                class="language-close"
+                id="languageClose"
+                type="button"
+            >
+                ×
+            </button>
+
+
+            <span class="language-small-title">
+                LANGUAGE
+            </span>
+
+
+            <h2>
+                Select Language
+            </h2>
+
+
+            <p>
+                Apni preferred website language choose karein.
+            </p>
+
+
+            <input
+                type="search"
+                id="languageSearch"
+                class="language-search"
+                placeholder="Search language..."
+                autocomplete="off"
+            >
+
+
+            <div
+                class="language-options"
+                id="languageOptions"
+            >
+
+                <!-- LANGUAGES WILL BE CREATED BY JAVASCRIPT -->
+
+            </div>
+
+
+            <div
+                class="language-empty"
+                id="languageEmpty"
+            >
+                Language nahi mili.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- HERO -->
+
+        <section
+            class="hero"
+            id="home"
+        >
+
+            <div class="hero-content">
+
+                <div class="small-title">
+                    PREMIUM EDUCATION PLATFORM
+                </div>
+
+
+                <h1>
+                    Welcome to
+                    <span>
+                        StudentHub4U
+                    </span>
+                </h1>
+
+
+                <p>
+                    Bihar Board students ke liye
+                    Notes, PYQ, Previous Year Papers,
+                    Chapter-wise Quiz aur Study Resources
+                    ek hi premium platform par.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#boards"
+                        class="primary-btn"
+                    >
+                        Start Learning
+                    </a>
+
+
+                    <a
+                        href="#features"
+                        class="secondary-btn"
+                    >
+                        Explore Features
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BIHAR BOARD -->
+
+        <section
+            class="boards-section"
+            id="boards"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    BIHAR BOARD
+                </span>
+
+                <h2>
+                    Start Your Learning
+                </h2>
+
+                <p>
+                    Bihar Board select karke
+                    apni class choose karein.
+                </p>
+
+            </div>
+
+
+            <div class="premium-board-container">
+
+                <a
+                    href="board.html"
+                    class="premium-board-card"
+                >
+
+                    <div class="premium-board-glow"></div>
+
+
+                    <div class="premium-board-icon">
+                        B
+                    </div>
+
+
+                    <div class="premium-board-content">
+
+                        <span>
+                            OFFICIAL STUDY SECTION
+                        </span>
+
+                        <h3>
+                            Bihar Board
+                        </h3>
+
+                        <p>
+                            Class 9 • 10 • 11 • 12
+                        </p>
+
+                    </div>
+
+
+                    <div class="premium-board-arrow">
+                        →
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section
+            class="features-section"
+            id="features"
+        >
+
+            <div class="section-heading">
+
+                <span>
+                    STUDY SMARTER
+                </span>
+
+                <h2>
+                    Everything You Need
+                </h2>
+
+                <p>
+                    Padhai se related important resources
+                    ek organized platform par.
+                </p>
+
+            </div>
+
+
+            <div class="features-grid">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Notes
+                    </h3>
+
+                    <p>
+                        Class aur subject ke according
+                        study notes.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+                    <h3>
+                        PYQ & Papers
+                    </h3>
+
+                    <p>
+                        Previous year questions aur
+                        previous year papers.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Smart Quiz
+                    </h3>
+
+                    <p>
+                        Chapter-wise objective quiz
+                        aur instant result.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Study Tools
+                    </h3>
+
+                    <p>
+                        Students ke useful study
+                        tools ek jagah.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        05
+                    </div>
+
+                    <h3>
+                        Syllabus
+                    </h3>
+
+                    <p>
+                        Bihar Board ka complete syllabus
+                        class aur subject ke according.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        06
+                    </div>
+
+                    <h3>
+                        Important Questions
+                    </h3>
+
+                    <p>
+                        Exam preparation ke liye
+                        important questions aur practice.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-number">
+                        07
+                    </div>
+
+                    <h3>
+                        PDF Resources
+                    </h3>
+
+                    <p>
+                        Notes, papers aur useful
+                        study PDFs ek jagah.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="updates.html"
+                    class="feature-card exam-update-card"
+                >
+
+                    <div class="feature-number">
+                        08
+                    </div>
+
+                    <h3>
+                        Exam Updates
+                    </h3>
+
+                    <p>
+                        Board exam se related
+                        important updates aur notices.
+                    </p>
+
+                    <div class="feature-card-arrow">
+                        →
+                    </div>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUPPORT -->
+
+        <section
+            class="support-section"
+            id="support"
+        >
+
+            <div class="support-box">
+
+                <span>
+                    NEED HELP?
+                </span>
+
+                <h2>
+                    StudentHub4U Support
+                </h2>
+
+                <p>
+                    Website ke updates aur support ke liye
+                    hamare official channel se connected raho.
+                </p>
+
+                <a
+                    class="support-btn"
+                    href="https://whatsapp.com/channel/0029Vb90qfZ0bIdwKwnjPZ2k"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    WhatsApp Support
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+        <div class="logo footer-logo">
+
+            <span>
+                Student
+            </span>Hub4U
+
+        </div>
+
+
+        <p>
+            © 2026 StudentHub4U.
+            All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================================
+         LANGUAGE SYSTEM
+    ====================================================== -->
+
+    <script>
+
+        /* =====================================================
+           LANGUAGE LIST
+           100+ LANGUAGES
+        ====================================================== */
+
+        const languages = [
+
+            ["Hindi", "हिन्दी", "🇮🇳"],
+            ["English", "English", "🌐"],
+            ["Bengali", "বাংলা", "🇧🇩"],
+            ["Urdu", "اردو", "🇵🇰"],
+            ["Nepali", "नेपाली", "🇳🇵"],
+            ["Marathi", "मराठी", "🇮🇳"],
+            ["Gujarati", "ગુજરાતી", "🇮🇳"],
+            ["Punjabi", "ਪੰਜਾਬੀ", "🇮🇳"],
+            ["Tamil", "தமிழ்", "🇮🇳"],
+            ["Telugu", "తెలుగు", "🇮🇳"],
+            ["Kannada", "ಕನ್ನಡ", "🇮🇳"],
+            ["Malayalam", "മലയാളം", "🇮🇳"],
+            ["Odia", "ଓଡ଼ିଆ", "🇮🇳"],
+            ["Assamese", "অসমীয়া", "🇮🇳"],
+            ["Maithili", "मैथिली", "🇮🇳"],
+            ["Sanskrit", "संस्कृतम्", "🇮🇳"],
+
+            ["Arabic", "العربية", "🇸🇦"],
+            ["Persian", "فارسی", "🇮🇷"],
+            ["Turkish", "Türkçe", "🇹🇷"],
+            ["Hebrew", "עברית", "🇮🇱"],
+            ["French", "Français", "🇫🇷"],
+            ["German", "Deutsch", "🇩🇪"],
+            ["Spanish", "Español", "🇪🇸"],
+            ["Portuguese", "Português", "🇵🇹"],
+            ["Italian", "Italiano", "🇮🇹"],
+            ["Dutch", "Nederlands", "🇳🇱"],
+            ["Greek", "Ελληνικά", "🇬🇷"],
+            ["Russian", "Русский", "🇷🇺"],
+            ["Ukrainian", "Українська", "🇺🇦"],
+            ["Polish", "Polski", "🇵🇱"],
+            ["Czech", "Čeština", "🇨🇿"],
+            ["Slovak", "Slovenčina", "🇸🇰"],
+            ["Hungarian", "Magyar", "🇭🇺"],
+            ["Romanian", "Română", "🇷🇴"],
+            ["Bulgarian", "Български", "🇧🇬"],
+            ["Serbian", "Српски", "🇷🇸"],
+            ["Croatian", "Hrvatski", "🇭🇷"],
+            ["Bosnian", "Bosanski", "🇧🇦"],
+            ["Slovenian", "Slovenščina", "🇸🇮"],
+            ["Albanian", "Shqip", "🇦🇱"],
+            ["Lithuanian", "Lietuvių", "🇱🇹"],
+            ["Latvian", "Latviešu", "🇱🇻"],
+            ["Estonian", "Eesti", "🇪🇪"],
+            ["Finnish", "Suomi", "🇫🇮"],
+            ["Swedish", "Svenska", "🇸🇪"],
+            ["Norwegian", "Norsk", "🇳🇴"],
+            ["Danish", "Dansk", "🇩🇰"],
+            ["Icelandic", "Íslenska", "🇮🇸"],
+            ["Irish", "Gaeilge", "🇮🇪"],
+            ["Welsh", "Cymraeg", "🏴"],
+
+            ["Chinese", "中文", "🇨🇳"],
+            ["Japanese", "日本語", "🇯🇵"],
+            ["Korean", "한국어", "🇰🇷"],
+            ["Mongolian", "Монгол", "🇲🇳"],
+            ["Vietnamese", "Tiếng Việt", "🇻🇳"],
+            ["Thai", "ไทย", "🇹🇭"],
+            ["Indonesian", "Bahasa Indonesia", "🇮🇩"],
+            ["Malay", "Bahasa Melayu", "🇲🇾"],
+            ["Filipino", "Filipino", "🇵🇭"],
+            ["Burmese", "မြန်မာ", "🇲🇲"],
+            ["Khmer", "ខ្មែរ", "🇰🇭"],
+            ["Lao", "ລາວ", "🇱🇦"],
+
+            ["Swahili", "Kiswahili", "🌍"],
+            ["Amharic", "አማርኛ", "🇪🇹"],
+            ["Somali", "Soomaali", "🇸🇴"],
+            ["Hausa", "Hausa", "🌍"],
+            ["Yoruba", "Yorùbá", "🌍"],
+            ["Igbo", "Igbo", "🌍"],
+            ["Zulu", "isiZulu", "🇿🇦"],
+            ["Xhosa", "isiXhosa", "🇿🇦"],
+            ["Afrikaans", "Afrikaans", "🇿🇦"],
+
+            ["Kazakh", "Қазақша", "🇰🇿"],
+            ["Uzbek", "O‘zbek", "🇺🇿"],
+            ["Turkmen", "Türkmençe", "🇹🇲"],
+            ["Kyrgyz", "Кыргызча", "🇰🇬"],
+            ["Tajik", "Тоҷикӣ", "🇹🇯"],
+            ["Azerbaijani", "Azərbaycan", "🇦🇿"],
+            ["Georgian", "ქართული", "🇬🇪"],
+            ["Armenian", "Հայերեն", "🇦🇲"],
+
+            ["Pashto", "پښتو", "🇦🇫"],
+            ["Kurdish", "Kurdî", "🌍"],
+            ["Dari", "دری", "🇦🇫"],
+
+            ["Latin", "Latina", "🏛️"],
+            ["Esperanto", "Esperanto", "🌍"],
+            ["Catalan", "Català", "🇪🇸"],
+            ["Basque", "Euskara", "🇪🇸"],
+            ["Galician", "Galego", "🇪🇸"],
+            ["Maltese", "Malti", "🇲🇹"],
+
+            ["Estonian", "Eesti", "🇪🇪"],
+            ["Belarusian", "Беларуская", "🇧🇾"],
+            ["Macedonian", "Македонски", "🇲🇰"],
+            ["Georgian", "ქართული", "🇬🇪"],
+            ["Luxembourgish", "Lëtzebuergesch", "🇱🇺"],
+
+            ["Hawaiian", "ʻŌlelo Hawaiʻi", "🌺"],
+            ["Maori", "Te Reo Māori", "🇳🇿"],
+            ["Samoan", "Gagana Samoa", "🇼🇸"],
+            ["Tongan", "Lea Faka-Tonga", "🇹🇴"],
+            ["Fijian", "Vosa Vakaviti", "🇫🇯"],
+
+            ["Yiddish", "ייִדיש", "🌍"],
+            ["Aramaic", "ܐܪܡܝܐ", "🌍"],
+            ["Pashto", "پښتو", "🇦🇫"],
+            ["Sindhi", "سنڌي", "🇵🇰"],
+            ["Konkani", "कोंकणी", "🇮🇳"],
+            ["Dogri", "डोगरी", "🇮🇳"],
+            ["Kashmiri", "कॉशुर / کٲشُر", "🇮🇳"],
+            ["Bodo", "बड़ो", "🇮🇳"],
+            ["Santali", "ᱥᱟᱱᱛᱟᱲᱤ", "🇮🇳"],
+            ["Manipuri", "মৈতৈলোন", "🇮🇳"],
+
+            ["Sindhi", "सिन्धी", "🇮🇳"],
+            ["Bhojpuri", "भोजपुरी", "🇮🇳"],
+            ["Rajasthani", "राजस्थानी", "🇮🇳"],
+            ["Haryanvi", "हरियाणवी", "🇮🇳"],
+            ["Chhattisgarhi", "छत्तीसगढ़ी", "🇮🇳"],
+            ["Garhwali", "गढ़वाली", "🇮🇳"],
+            ["Kumaoni", "कुमाऊँनी", "🇮🇳"],
+
+            ["Quechua", "Runa Simi", "🌎"],
+            ["Guarani", "Avañe'ẽ", "🌎"],
+            ["Nahuatl", "Nāhuatl", "🌎"],
+
+            ["Tibetan", "བོད་ཡིག", "🏔️"],
+            ["Dzongkha", "རྫོང་ཁ", "🇧🇹"],
+
+            ["Malayalam", "മലയാളം", "🇮🇳"],
+            ["Sundanese", "Basa Sunda", "🇮🇩"],
+            ["Javanese", "Basa Jawa", "🇮🇩"],
+            ["Tagalog", "Tagalog", "🇵🇭"],
+            ["Cebuano", "Cebuano", "🇵🇭"],
+
+            ["Scottish Gaelic", "Gàidhlig", "🏴"],
+            ["Frisian", "Frysk", "🇳🇱"],
+            ["Corsican", "Corsu", "🇫🇷"],
+            ["Occitan", "Occitan", "🇫🇷"],
+
+            ["Aragonese", "Aragonés", "🇪🇸"],
+            ["Asturian", "Asturianu", "🇪🇸"],
+            ["Sardinian", "Sardu", "🇮🇹"],
+
+            ["Breton", "Brezhoneg", "🇫🇷"],
+            ["Faroese", "Føroyskt", "🇫🇴"],
+            ["Greenlandic", "Kalaallisut", "🇬🇱"],
+
+            ["Luxembourgish", "Lëtzebuergesch", "🇱🇺"],
+            ["Romansh", "Rumantsch", "🇨🇭"],
+            ["Occitan", "Occitan", "🇫🇷"]
+
+        ];
+
+
+        /* =====================================================
+           ELEMENTS
+        ====================================================== */
+
+        const languageSetting =
+            document.getElementById("languageSetting");
+
+        const languagePopup =
+            document.getElementById("languagePopup");
+
+        const languageClose =
+            document.getElementById("languageClose");
+
+        const languageOptions =
+            document.getElementById("languageOptions");
+
+        const languageSearch =
+            document.getElementById("languageSearch");
+
+        const languageEmpty =
+            document.getElementById("languageEmpty");
+
+        const currentLanguageText =
+            document.getElementById("currentLanguageText");
+
+
+        /* =====================================================
+           CURRENT LANGUAGE
+        ====================================================== */
+
+        let currentLanguage =
+            localStorage.getItem("websiteLanguage") || "Hindi";
+
+
+        /* =====================================================
+           CREATE LANGUAGE LIST
+        ====================================================== */
+
+        function createLanguageList(searchText = "") {
+
+            languageOptions.innerHTML = "";
+
+            const search =
+                searchText
+                    .trim()
+                    .toLowerCase();
+
+            let found = 0;
+
+            languages.forEach(function(language) {
+
+                const englishName = language[0];
+                const nativeName = language[1];
+                const icon = language[2];
+
+                if (
+                    search &&
+                    !englishName.toLowerCase().includes(search) &&
+                    !nativeName.toLowerCase().includes(search)
+                ) {
+                    return;
+                }
+
+                found++;
+
+                const button =
+                    document.createElement("button");
+
+                button.type = "button";
+
+                button.className =
+                    "language-option";
+
+                if (
+                    englishName === currentLanguage
+                ) {
+                    button.classList.add("selected");
+                }
+
+                button.dataset.language =
+                    englishName;
+
+                button.innerHTML = `
+
+                    <span class="language-icon">
+                        ${icon}
+                    </span>
+
+                    <span class="language-name">
+
+                        <strong>
+                            ${nativeName}
+                        </strong>
+
+                        <small>
+                            ${englishName}
+                        </small>
+
+                    </span>
+
+                    <span class="language-check">
+                        ✓
+                    </span>
+
+                `;
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        selectLanguage(
+                            englishName
+                        );
+
+                    }
+                );
+
+                languageOptions.appendChild(
+                    button
+                );
+
+            });
+
+
+            languageEmpty.style.display =
+                found === 0
+                    ? "block"
+                    : "none";
+        }
+
+
+        /* =====================================================
+           SELECT LANGUAGE
+        ====================================================== */
+
+        function selectLanguage(language) {
+
+            currentLanguage =
+                language;
+
+            localStorage.setItem(
+                "websiteLanguage",
+                language
+            );
+
+
+            if (currentLanguageText) {
+
+                currentLanguageText.textContent =
+                    getNativeLanguageName(
+                        language
+                    );
+
+            }
+
+
+            createLanguageList(
+                languageSearch.value
+            );
+
+
+            /*
+              Hindi aur English ke basic
+              translations abhi built-in hain.
+              Baaki languages ke liye API
+              next step me connect ki jayegi.
+            */
+
+            applyBuiltInTranslation(
+                language
+            );
+
+
+            setTimeout(
+                function() {
+
+                    languagePopup.classList.remove(
+                        "active"
+                    );
+
+                },
+                350
+            );
+
+        }
+
+
+        /* =====================================================
+           GET NATIVE NAME
+        ====================================================== */
+
+        function getNativeLanguageName(
+            language
+        ) {
+
+            const found =
+                languages.find(
+                    item =>
+                        item[0] === language
+                );
+
+            if (found) {
+                return found[1];
+            }
+
+            return language;
+        }
+
+
+        /* =====================================================
+           BASIC BUILT-IN TRANSLATIONS
+        ====================================================== */
+
+        const translations = {
+
+            Hindi: {
+
+                "Home":
+                    "होम",
+
+                "Bihar Board":
+                    "बिहार बोर्ड",
+
+                "Features":
+                    "फीचर्स",
+
+                "Support":
+                    "सपोर्ट",
+
+                "Study Features":
+                    "स्टडी फीचर्स",
+
+                "Settings":
+                    "सेटिंग्स",
+
+                "Appearance":
+                    "दिखावट",
+
+                "Theme":
+                    "थीम",
+
+                "Dark":
+                    "डार्क",
+
+                "Light":
+                    "लाइट",
+
+                "Text Size":
+                    "टेक्स्ट साइज",
+
+                "Reading":
+                    "पढ़ने के लिए",
+
+                "Notifications":
+                    "नोटिफिकेशन",
+
+                "Language":
+                    "भाषा",
+
+                "About StudentHub4U":
+                    "StudentHub4U के बारे में",
+
+                "Support & Help":
+                    "सपोर्ट और मदद",
+
+                "Reset Settings":
+                    "सेटिंग्स रीसेट करें",
+
+                "Start Learning":
+                    "पढ़ाई शुरू करें",
+
+                "Explore Features":
+                    "फीचर्स देखें",
+
+                "Notes":
+                    "नोट्स",
+
+                "PYQ & Papers":
+                    "PYQ और पेपर",
+
+                "Smart Quiz":
+                    "स्मार्ट क्विज़",
+
+                "Study Tools":
+                    "स्टडी टूल्स",
+
+                "Syllabus":
+                    "सिलेबस",
+
+                "Important Questions":
+                    "महत्वपूर्ण प्रश्न",
+
+                "PDF Resources":
+                    "PDF संसाधन",
+
+                "Exam Updates":
+                    "परीक्षा अपडेट",
+
+                "WhatsApp Support":
+                    "WhatsApp सपोर्ट"
+
+            },
+
+            English: {}
+
+        };
+
+
+        /* =====================================================
+           APPLY BUILT-IN TRANSLATION
+        ====================================================== */
+
+        function applyBuiltInTranslation(
+            language
+        ) {
+
+            if (
+                language !== "Hindi" &&
+                language !== "English"
+            ) {
+
+                /*
+                  Other languages will be connected
+                  with translation API.
+                */
+
+                return;
+            }
+
+
+            const dictionary =
+                translations[language];
+
+
+            if (!dictionary) {
+                return;
+            }
+
+
+            const walker =
+                document.createTreeWalker(
+                    document.body,
+                    NodeFilter.SHOW_TEXT
+                );
+
+
+            const nodes = [];
+
+
+            while (
+                walker.nextNode()
+            ) {
+
+                nodes.push(
+                    walker.currentNode
+                );
+
+            }
+
+
+            nodes.forEach(
+                function(node) {
+
+                    const original =
+                        node.textContent.trim();
+
+
+                    if (
+                        dictionary[original]
+                    ) {
+
+                        node.textContent =
+                            node.textContent.replace(
+                                original,
+                                dictionary[original]
+                            );
+
+                    }
+
+                }
+            );
+
+
+            document.documentElement.lang =
+                language === "Hindi"
+                    ? "hi"
+                    : "en";
+
+        }
+
+
+        /* =====================================================
+           OPEN LANGUAGE POPUP
+        ====================================================== */
+
+        if (languageSetting) {
+
+            languageSetting.addEventListener(
+                "click",
+                function() {
+
+                    languagePopup.classList.add(
+                        "active"
+                    );
+
+                    createLanguageList();
+
+                    languageSearch.value = "";
+
+                    setTimeout(
+                        function() {
+
+                            languageSearch.focus();
+
+                        },
+                        100
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           CLOSE
+        ====================================================== */
+
+        if (languageClose) {
+
+            languageClose.addEventListener(
+                "click",
+                function() {
+
+                    languagePopup.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           CLICK OUTSIDE
+        ====================================================== */
+
+        languagePopup.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    languagePopup
+                ) {
+
+                    languagePopup.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SEARCH
+        ====================================================== */
+
+        languageSearch.addEventListener(
+            "input",
+            function() {
+
+                createLanguageList(
+                    languageSearch.value
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           ESC KEY
+        ====================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Escape"
+                ) {
+
+                    languagePopup.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIAL LOAD
+        ====================================================== */
+
+        currentLanguageText.textContent =
+            getNativeLanguageName(
+                currentLanguage
+            );
+
+
+        createLanguageList();
+
+
+    </script>
+
+
+    <!-- =====================================================
+         MAIN SCRIPT
+    ====================================================== -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
