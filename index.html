@@ -1,362 +1,1201 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="StudentHub4U - Bihar Board students ke liye premium study platform."
-    >
+    <meta name="description"
+          content="StudentHub4U - Bihar Board students ke liye modern study platform.">
 
     <title>StudentHub4U</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* =====================================================
-           LANGUAGE POPUP
-        ====================================================== */
 
-        .language-popup {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --blue: #08a9ff;
+            --blue-dark: #0076e8;
+            --green: #23d997;
+            --red: #ff4355;
+            --bg: #030608;
+            --card: #0d141b;
+            --text: #ffffff;
+            --muted: #7b8994;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(
+                    circle at 80% 15%,
+                    rgba(0,145,220,0.15),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 15% 85%,
+                    rgba(0,105,220,0.10),
+                    transparent 30%
+                ),
+                #030608;
+            color: var(--text);
+            font-family:
+                Inter,
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+        body::before {
+            content: "";
             position: fixed;
             inset: 0;
-            display: none;
+            pointer-events: none;
+            opacity: 0.32;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+            background-size: 52px 52px;
+            z-index: -5;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 25px;
+
+            background: rgba(3,6,8,0.88);
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.07);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            z-index: 5000;
+        }
+
+        .menu-btn {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.82);
-            backdrop-filter: blur(12px);
-            z-index: 99999;
-        }
 
-        .language-popup.active {
-            display: flex;
-            animation: languageFade 0.25s ease;
-        }
+            margin-right: 15px;
 
-        @keyframes languageFade {
-            from {
-                opacity: 0;
-            }
+            border:
+                1px solid rgba(255,255,255,0.10);
 
-            to {
-                opacity: 1;
-            }
-        }
-
-        .language-popup-box {
-            position: relative;
-            width: 100%;
-            max-width: 520px;
-            max-height: 88vh;
-            overflow: hidden;
-
-            padding: 30px;
-
-            border: 1px solid rgba(0, 170, 255, 0.25);
-            border-radius: 22px;
+            border-radius: 11px;
 
             background:
                 linear-gradient(
                     145deg,
-                    #111317,
-                    #06080b
+                    #151b21,
+                    #080b0e
                 );
 
-            box-shadow:
-                0 30px 80px rgba(0, 0, 0, 0.75),
-                0 0 35px rgba(0, 170, 255, 0.08);
-
-            transform: scale(0.94);
-            animation: languageBoxOpen 0.3s ease forwards;
-        }
-
-        @keyframes languageBoxOpen {
-            to {
-                transform: scale(1);
-            }
-        }
-
-        .language-close {
-            position: absolute;
-            top: 14px;
-            right: 15px;
-
-            width: 36px;
-            height: 36px;
-
-            border: none;
-            border-radius: 50%;
-
-            background: rgba(255,255,255,0.06);
             color: white;
 
             font-size: 22px;
             cursor: pointer;
 
-            transition: 0.3s ease;
+            transition: 0.25s ease;
         }
 
-        .language-close:hover {
-            background: rgba(255, 50, 60, 0.15);
-            color: #ff4757;
-            transform: rotate(90deg);
-        }
-
-        .language-small-title {
-            color: #00aaff;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 4px;
-        }
-
-        .language-popup-box h2 {
-            margin: 8px 0;
-            color: white;
-            font-size: 27px;
-        }
-
-        .language-popup-box > p {
-            margin-bottom: 18px;
-            color: #858990;
-            font-size: 13px;
-        }
-
-        /* SEARCH */
-
-        .language-search {
-            width: 100%;
-            box-sizing: border-box;
-
-            padding: 13px 15px;
-
-            border: 1px solid rgba(255,255,255,0.09);
-            border-radius: 13px;
-
-            outline: none;
-
-            background: rgba(255,255,255,0.045);
-            color: white;
-
-            font-size: 14px;
-
-            margin-bottom: 15px;
-        }
-
-        .language-search::placeholder {
-            color: #777d85;
-        }
-
-        .language-search:focus {
-            border-color: rgba(0,170,255,0.55);
-            box-shadow: 0 0 18px rgba(0,170,255,0.08);
-        }
-
-        /* LANGUAGE LIST */
-
-        .language-options {
-            display: grid;
-            gap: 10px;
-
-            max-height: 52vh;
-            overflow-y: auto;
-
-            padding-right: 4px;
-        }
-
-        .language-options::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .language-options::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.03);
-        }
-
-        .language-options::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.18);
-            border-radius: 20px;
-        }
-
-        .language-option {
-            position: relative;
-
-            width: 100%;
-
-            display: flex;
-            align-items: center;
-
-            gap: 13px;
-
-            padding: 12px;
-
-            border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 14px;
-
-            background: rgba(255,255,255,0.025);
-
-            color: white;
-
-            text-align: left;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-        .language-option:hover {
-            transform: translateX(4px);
-
-            border-color: rgba(0,170,255,0.4);
-
-            background: rgba(0,170,255,0.06);
-
-            box-shadow:
-                0 0 18px rgba(0,170,255,0.07);
-        }
-
-        .language-option.selected {
-            border-color: #00aaff;
+        .menu-btn:hover {
+            border-color:
+                rgba(0,170,255,0.45);
 
             background:
-                linear-gradient(
-                    90deg,
-                    rgba(0,170,255,0.10),
-                    rgba(0,170,255,0.03)
-                );
+                rgba(0,170,255,0.10);
 
             box-shadow:
-                0 0 20px rgba(0,170,255,0.10);
+                0 0 25px rgba(0,170,255,0.14);
         }
 
-        .language-icon {
-            width: 40px;
-            height: 40px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
 
-            flex-shrink: 0;
+            font-size: 23px;
+            font-weight: 900;
+
+            white-space: nowrap;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            border-radius: 11px;
+            border-radius: 10px;
 
-            background: rgba(255,255,255,0.06);
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #006be6
+                );
 
-            font-size: 19px;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 950;
+
+            box-shadow:
+                0 8px 25px rgba(0,145,255,0.28);
         }
 
-        .language-name {
-            flex: 1;
+        .logo-text span {
+            color: var(--blue);
+        }
+
+
+        /* =====================================================
+           THEME BUTTONS
+        ===================================================== */
+
+        .header-theme {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 28px;
+        }
+
+        .header-theme-btn {
+            height: 40px;
+            padding: 0 14px;
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            color: #c5cdd4;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        .header-theme-btn.active {
+            color: white;
+
+            border-color:
+                rgba(0,170,255,0.45);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #0076e8
+                );
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .navbar {
+            margin-left: auto;
 
             display: flex;
-            flex-direction: column;
+            align-items: center;
 
-            gap: 3px;
+            gap: 5px;
         }
 
-        .language-name strong {
-            color: white;
-            font-size: 14px;
-        }
+        .navbar > a,
+        .notification-nav-btn {
+            height: 40px;
 
-        .language-name small {
-            color: #777d85;
-            font-size: 11px;
-        }
+            display: inline-flex;
+            align-items: center;
 
-        .language-check {
-            color: #00aaff;
-            font-size: 18px;
-            font-weight: bold;
+            gap: 8px;
 
-            opacity: 0;
+            padding: 0 13px;
+
+            border:
+                1px solid transparent;
+
+            border-radius: 9px;
+
+            background: transparent;
+
+            color: #b8c1c9;
+
+            font-size: 13px;
+            font-weight: 750;
+
+            cursor: pointer;
 
             transition: 0.25s ease;
         }
 
-        .language-option.selected .language-check {
-            opacity: 1;
+        .navbar > a:hover,
+        .notification-nav-btn:hover {
+            color: white;
+
+            background:
+                rgba(0,170,255,0.07);
+
+            border-color:
+                rgba(0,170,255,0.15);
         }
 
-        .language-empty {
-            display: none;
-
-            padding: 25px;
-
-            text-align: center;
-
-            color: #777d85;
-            font-size: 13px;
-        }
 
         /* =====================================================
-           EXTRA SETTINGS
-        ====================================================== */
+           AUTH BUTTONS
+        ===================================================== */
 
-        .extra-settings {
-            display: grid;
-            gap: 12px;
-            margin-top: 18px;
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-left: 16px;
         }
 
-        .extra-setting-card {
+        .auth-btn {
+            height: 40px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 15px;
+
+            border-radius: 9px;
+
+            font-size: 12px;
+            font-weight: 900;
+
+            white-space: nowrap;
+
+            transition: 0.25s ease;
+        }
+
+        .auth-signin {
+            color: #dce4ea;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+        }
+
+        .auth-signin:hover {
+            color: white;
+
+            border-color:
+                rgba(0,170,255,0.35);
+
+            background:
+                rgba(0,170,255,0.08);
+        }
+
+        .auth-signup {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #0076e8
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 8px 25px rgba(0,140,255,0.23);
+        }
+
+        .auth-signup:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 13px 32px rgba(0,140,255,0.32);
+        }
+
+
+        /* =====================================================
+           NOTIFICATION
+        ===================================================== */
+
+        .notification-icon {
             position: relative;
 
-            width: 100%;
-            min-height: 68px;
+            width: 20px;
+            height: 20px;
 
             display: flex;
             align-items: center;
+            justify-content: center;
+        }
 
-            gap: 13px;
+        .notification-icon svg {
+            width: 18px;
+            height: 18px;
 
-            padding: 13px 15px;
+            fill: none;
+            stroke: currentColor;
 
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notification-badge {
+            position: absolute;
+
+            top: -7px;
+            right: -8px;
+
+            min-width: 16px;
+            height: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 4px;
+
+            border-radius: 50px;
+
+            background: var(--red);
+
+            color: white;
+
+            border: 2px solid #030608;
+
+            font-size: 9px;
+            font-weight: 900;
+        }
+
+        .notification-panel {
+            position: fixed;
+
+            top: 88px;
+            right: 25px;
+
+            width: 370px;
+            max-width: calc(100vw - 30px);
+
+            padding: 18px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(22,23,26,0.96),
-                    rgba(9,10,12,0.96)
+                    rgba(18,28,38,0.98),
+                    rgba(6,10,14,0.98)
                 );
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.65);
+
+            z-index: 9999;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(-12px)
+                scale(0.97);
+
+            transition: 0.25s ease;
+        }
+
+        .notification-panel.active {
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .notification-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: 14px;
+            margin-bottom: 6px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.07);
+        }
+
+        .notification-panel-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-panel-title-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #006be8
+                );
+        }
+
+        .notification-panel-title-icon svg {
+            width: 19px;
+            height: 19px;
+
+            fill: none;
+            stroke: white;
+
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notification-panel-title h3 {
+            color: white;
+            font-size: 16px;
+        }
+
+        .notification-panel-title span {
+            display: block;
+            margin-top: 3px;
+
+            color: #74818c;
+            font-size: 10px;
+        }
+
+        .notification-close {
+            width: 31px;
+            height: 31px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            color: #9aa6af;
+
+            font-size: 19px;
+            cursor: pointer;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 12px;
+
+            padding: 13px 9px;
+
+            border-radius: 12px;
+        }
+
+        .notification-item:hover {
+            background:
+                rgba(255,255,255,0.035);
+        }
+
+        .notification-item-icon {
+            flex-shrink: 0;
+
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: var(--blue);
+
+            background:
+                rgba(0,170,255,0.10);
+        }
+
+        .notification-item-icon svg {
+            width: 17px;
+            height: 17px;
+
+            fill: none;
+            stroke: currentColor;
+
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notification-item-content strong {
+            display: block;
 
             color: white;
 
-            cursor: pointer;
-            text-align: left;
+            font-size: 12px;
 
-            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .notification-item-content p {
+            color: #85919b;
+
+            font-size: 10.5px;
+            line-height: 1.5;
+        }
+
+        .notification-time {
+            display: block;
+
+            color: #515d67;
+
+            font-size: 9px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =====================================================
+           SIDE MENU
+        ===================================================== */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+
+            background:
+                rgba(0,0,0,0.65);
+
+            backdrop-filter: blur(4px);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.3s ease;
+
+            z-index: 6000;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .side-menu {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 315px;
+            height: 100vh;
+
+            padding: 25px 18px;
+
+            background:
+                linear-gradient(
+                    160deg,
+                    #0b1219,
+                    #030609
+                );
+
+            border-right:
+                1px solid rgba(255,255,255,0.08);
+
+            transform:
+                translateX(-105%);
 
             transition:
-                transform 0.3s ease,
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
+                transform 0.35s cubic-bezier(.2,.8,.2,1);
+
+            z-index: 7000;
+
+            overflow-y: auto;
         }
 
-        .extra-setting-card:hover {
-            transform: translateX(5px);
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        .side-menu-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: 20px;
+            margin-bottom: 18px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .side-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-weight: 900;
+        }
+
+        .side-brand-mark {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #006be6
+                );
+
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .side-brand-text span {
+            color: var(--blue);
+        }
+
+        .close-menu {
+            width: 35px;
+            height: 35px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            color: #aab4bc;
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+        .menu-label {
+            color: #4e5b65;
+
+            font-size: 10px;
+            font-weight: 900;
+
+            letter-spacing: 1.5px;
+
+            margin:
+                20px 10px 8px;
+        }
+
+        .side-menu a,
+        .side-menu button {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 12px 13px;
+            margin-bottom: 3px;
+
+            border:
+                1px solid transparent;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: #aeb8c0;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            text-align: left;
+
+            cursor: pointer;
+        }
+
+        .side-menu a:hover,
+        .side-menu button:hover {
+            color: white;
+
+            background:
+                rgba(0,170,255,0.07);
 
             border-color:
-                rgba(255,255,255,0.30);
-
-            box-shadow:
-                0 8px 25px rgba(0,0,0,0.45);
+                rgba(0,170,255,0.12);
         }
 
-        .extra-setting-icon {
-            width: 39px;
-            height: 39px;
+        .menu-icon {
+            width: 30px;
+            height: 30px;
 
-            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: var(--blue);
+
+            font-size: 11px;
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            position: relative;
+
+            min-height: 730px;
+
+            padding:
+                160px 7% 80px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 0.92fr;
+
+            align-items: center;
+
+            gap: 60px;
+
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            left: -250px;
+            top: 130px;
+
+            width: 700px;
+            height: 500px;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,150,255,0.12),
+                    transparent 68%
+                );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            max-width: 650px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 9px 14px;
+            margin-bottom: 25px;
+
+            border:
+                1px solid rgba(0,170,255,0.25);
+
+            border-radius: 50px;
+
+            background:
+                rgba(0,170,255,0.06);
+
+            color: #5bc8ff;
+
+            font-size: 11px;
+            font-weight: 900;
+
+            letter-spacing: 1px;
+        }
+
+        .hero-badge::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--blue);
+
+            box-shadow:
+                0 0 12px var(--blue);
+        }
+
+        .hero h1 {
+            font-size:
+                clamp(55px,6vw,86px);
+
+            line-height: 0.98;
+
+            letter-spacing: -4px;
+
+            font-weight: 950;
+        }
+
+        .hero h1 span {
+            display: block;
+
+            color: var(--blue);
+
+            text-shadow:
+                0 0 45px rgba(0,170,255,0.17);
+        }
+
+        .hero-description {
+            max-width: 610px;
+
+            margin:
+                28px 0;
+
+            color: #aab5be;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            min-height: 48px;
+
+            padding: 0 20px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            font-size: 13px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .primary-btn {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #0076e8
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            box-shadow:
+                0 12px 30px rgba(0,140,255,0.23);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 17px 38px rgba(0,140,255,0.30);
+        }
+
+        .secondary-btn {
+            color: #d0d8de;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+        }
+
+        .secondary-btn:hover {
+            color: white;
+
+            border-color:
+                rgba(0,170,255,0.35);
+
+            background:
+                rgba(0,170,255,0.07);
+        }
+
+
+        /* =====================================================
+           BOOKS
+        ===================================================== */
+
+        .book-scene {
+            position: absolute;
+
+            right: -40px;
+            bottom: -20px;
+
+            width: 530px;
+            height: 430px;
+
+            pointer-events: none;
+
+            opacity: 0.72;
+        }
+
+        .book {
+            position: absolute;
+
+            border-radius:
+                5px 10px 10px 5px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #162b3b,
+                    #07111a
+                );
+
+            border:
+                1px solid rgba(70,170,220,0.18);
+
+            box-shadow:
+                0 30px 60px rgba(0,0,0,0.55);
+        }
+
+        .book::after {
+            content: "";
+
+            position: absolute;
+
+            left: 18px;
+            right: 18px;
+
+            top: 25px;
+
+            height: 2px;
+
+            background:
+                rgba(100,205,255,0.18);
+
+            box-shadow:
+                0 12px rgba(100,205,255,0.10),
+                0 24px rgba(100,205,255,0.08);
+        }
+
+        .book-1 {
+            width: 350px;
+            height: 235px;
+
+            right: 25px;
+            bottom: 20px;
+
+            transform: rotate(-8deg);
+        }
+
+        .book-2 {
+            width: 310px;
+            height: 210px;
+
+            right: 80px;
+            bottom: 80px;
+
+            transform: rotate(5deg);
+        }
+
+        .book-3 {
+            width: 270px;
+            height: 190px;
+
+            right: 5px;
+            bottom: 135px;
+
+            transform: rotate(-13deg);
+        }
+
+
+        /* =====================================================
+           DASHBOARD
+        ===================================================== */
+
+        .dashboard-wrap {
+            position: relative;
+            z-index: 3;
+
+            min-height: 480px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dashboard-glow {
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,170,255,0.18),
+                    transparent 67%
+                );
+
+            filter: blur(10px);
+        }
+
+        .dashboard {
+            position: relative;
+
+            width: 500px;
+
+            padding: 22px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(20,32,43,0.97),
+                    rgba(7,12,17,0.97)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,0.62),
+                0 0 50px rgba(0,150,255,0.08);
+
+            backdrop-filter: blur(20px);
+
+            transform:
+                perspective(1200px)
+                rotateY(-4deg)
+                rotateX(2deg);
+        }
+
+        .dashboard-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding-bottom: 17px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.07);
+        }
+
+        .student-profile {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .student-avatar {
+            width: 42px;
+            height: 42px;
 
             display: flex;
             align-items: center;
@@ -364,1637 +1203,3027 @@
 
             border-radius: 11px;
 
-            background: rgba(255,255,255,0.06);
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #006be6
+                );
 
-            border:
-                1px solid
-                rgba(255,255,255,0.10);
-
-            font-size: 17px;
+            font-size: 13px;
+            font-weight: 950;
         }
 
-        .extra-setting-content {
-            min-width: 0;
+        .student-profile strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .student-profile span {
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 9px;
+
+            color: #71808b;
+        }
+
+        .active-pill {
+            padding: 7px 11px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(35,217,151,0.08);
+
+            border:
+                1px solid rgba(35,217,151,0.20);
+
+            color: var(--green);
+
+            font-size: 9px;
+            font-weight: 900;
+        }
+
+        .progress-box {
+            margin-top: 17px;
+
+            padding: 17px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        .progress-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 11px;
+
+            color: #8996a0;
+
+            font-size: 10px;
+        }
+
+        .progress-title strong {
+            color: white;
+            font-size: 12px;
+        }
+
+        .progress-track {
+            height: 7px;
+
+            overflow: hidden;
+
+            border-radius: 50px;
+
+            background:
+                rgba(255,255,255,0.06);
+        }
+
+        .progress-value {
+            width: 68%;
+            height: 100%;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #08a9ff,
+                    #39c9ff
+                );
+        }
+
+        .subjects-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 10px;
+
+            margin-top: 12px;
+        }
+
+        .subject-card {
+            padding: 15px;
+
+            min-height: 110px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
+            transition: 0.25s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-2px);
+
+            border-color:
+                rgba(0,170,255,0.25);
+
+            background:
+                rgba(0,170,255,0.055);
+        }
+
+        .subject-icon {
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 10px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(0,170,255,0.10);
+
+            color: var(--blue);
+
+            font-size: 10px;
+            font-weight: 950;
+        }
+
+        .subject-card strong {
+            display: block;
+
+            color: #f0f4f6;
+
+            font-size: 11px;
+        }
+
+        .subject-card span {
+            display: block;
+
+            margin-top: 6px;
+
+            color: #65737e;
+
+            font-size: 9px;
+        }
+
+        .quick-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 10px;
+
+            margin-top: 12px;
+        }
+
+        .quick-card {
+            padding: 14px 10px;
+
+            text-align: center;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        .quick-card strong {
+            display: block;
+            color: white;
+            font-size: 10px;
+        }
+
+        .quick-card span {
+            display: block;
+
+            color: #596772;
+
+            font-size: 8px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-section {
+            position: relative;
+
+            padding:
+                0 7% 75px;
+        }
+
+        .search-box {
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            padding: 7px;
+
+            display: flex;
+            align-items: center;
+
+            border:
+                1px solid rgba(255,255,255,0.09);
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.035);
+        }
+
+        .search-box input {
             flex: 1;
+
+            min-width: 0;
+
+            height: 48px;
+
+            padding: 0 16px;
+
+            border: 0;
+            outline: 0;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .search-box input::placeholder {
+            color: #66737d;
+        }
+
+        .search-button {
+            height: 48px;
+
+            padding: 0 21px;
+
+            border: 0;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #0076e8
+                );
+
+            color: white;
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .section {
+            position: relative;
+
+            padding:
+                90px 7%;
+        }
+
+        .section-heading {
+            max-width: 700px;
+
+            margin-bottom: 38px;
+        }
+
+        .section-label {
+            color: var(--blue);
+
+            font-size: 10px;
+            font-weight: 900;
+
+            letter-spacing: 1.7px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-size:
+                clamp(32px,4vw,48px);
+
+            line-height: 1.1;
+
+            letter-spacing: -2px;
+        }
+
+        .section-heading p {
+            margin-top: 13px;
+
+            color: #788690;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           BOARD CARDS
+        ===================================================== */
+
+        .board-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap: 16px;
+        }
+
+        .board-card {
+            position: relative;
+
+            min-height: 250px;
+
+            padding: 23px;
 
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
 
-            gap: 4px;
+            overflow: hidden;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17,26,35,0.95),
+                    rgba(7,11,15,0.95)
+                );
+
+            transition: 0.3s ease;
         }
 
-        .extra-setting-content strong {
-            font-size: 14px;
-            color: #f4f4f4;
+        .board-card:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(0,170,255,0.30);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,0.40);
         }
 
-        .extra-setting-content small {
+        .board-number {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(0,170,255,0.12);
+
+            border:
+                1px solid rgba(0,170,255,0.18);
+
+            color: var(--blue);
+
+            font-size: 13px;
+            font-weight: 950;
+        }
+
+        .board-card h3 {
+            margin-top: 28px;
+
+            font-size: 22px;
+        }
+
+        .board-card p {
+            margin-top: 8px;
+
+            color: #72808a;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .board-card-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 20px;
+
+            color: var(--blue);
+
             font-size: 11px;
-            line-height: 1.4;
-            color: #858990;
+            font-weight: 900;
         }
 
-        .extra-setting-arrow {
-            color: #8e9399;
+
+        /* =====================================================
+           FEATURES
+        ===================================================== */
+
+        .features-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 15px;
+        }
+
+        .feature-card {
+            padding: 25px;
+
+            border:
+                1px solid rgba(255,255,255,0.07);
+
+            border-radius: 17px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            transition: 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(0,170,255,0.25);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0,170,255,0.09);
+
+            color: var(--blue);
+
+            font-size: 12px;
+            font-weight: 950;
+        }
+
+        .feature-card h3 {
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #6f7d87;
+
+            font-size: 11px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           SUPPORT
+        ===================================================== */
+
+        .support-box {
+            position: relative;
+
+            padding: 42px;
+
+            overflow: hidden;
+
+            border:
+                1px solid rgba(0,170,255,0.16);
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,145,220,0.10),
+                    rgba(255,255,255,0.025)
+                );
+        }
+
+        .support-box h2 {
+            font-size: 31px;
+            margin-bottom: 10px;
+        }
+
+        .support-box p {
+            max-width: 650px;
+
+            color: #81909b;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 23px;
+        }
+
+        .support-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .footer {
+            padding:
+                30px 7%;
+
+            border-top:
+                1px solid rgba(255,255,255,0.07);
+
+            color: #58656f;
+
+            font-size: 11px;
+
+            text-align: center;
+        }
+
+        .footer strong {
+            color: #8c99a3;
+        }
+
+
+        /* =====================================================
+           SETTINGS
+        ===================================================== */
+
+        .settings-panel {
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            width: 390px;
+            max-width: calc(100vw - 30px);
+
+            padding: 25px;
+
+            transform:
+                translate(-50%,-45%)
+                scale(0.97);
+
+            opacity: 0;
+            visibility: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #121c25,
+                    #070b10
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,0.65);
+
+            z-index: 9000;
+
+            transition: 0.25s ease;
+        }
+
+        .settings-panel.active {
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translate(-50%,-50%)
+                scale(1);
+        }
+
+        .settings-panel h2 {
+            margin-bottom: 6px;
+            font-size: 21px;
+        }
+
+        .settings-panel > p {
+            color: #6f7d87;
+
+            font-size: 11px;
+
+            margin-bottom: 22px;
+        }
+
+        .setting-row {
+            padding: 14px 0;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        .setting-row strong {
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 8px;
+        }
+
+        .setting-buttons {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .setting-option {
+            padding: 8px 11px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            color: #9ba7af;
+
+            cursor: pointer;
+
+            font-size: 10px;
+        }
+
+        .settings-close {
+            width: 100%;
+
+            margin-top: 18px;
+
+            height: 42px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #08a9ff,
+                    #0076e8
+                );
+
+            color: white;
+
+            font-weight: 900;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           LANGUAGE
+        ===================================================== */
+
+        .language-popup {
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            width: 470px;
+            max-width: calc(100vw - 30px);
+
+            padding: 24px;
+
+            transform:
+                translate(-50%,-45%)
+                scale(0.97);
+
+            opacity: 0;
+            visibility: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111a22,
+                    #060a0e
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 30px 90px rgba(0,0,0,0.65);
+
+            z-index: 9100;
+
+            transition: 0.25s ease;
+        }
+
+        .language-popup.active {
+            opacity: 1;
+            visibility: visible;
+
+            transform:
+                translate(-50%,-50%)
+                scale(1);
+        }
+
+        .language-popup h2 {
             font-size: 20px;
+            margin-bottom: 5px;
         }
 
-        /* MOBILE */
+        .language-popup p {
+            color: #6e7c86;
 
-        @media (max-width: 500px) {
+            font-size: 11px;
 
-            .language-popup {
-                padding: 12px;
+            margin-bottom: 18px;
+        }
+
+        .language-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap: 7px;
+        }
+
+        .language-option {
+            padding: 11px;
+
+            border:
+                1px solid rgba(255,255,255,0.07);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            color: #aab5bd;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            font-size: 11px;
+        }
+
+        .language-close {
+            width: 100%;
+
+            height: 40px;
+
+            margin-top: 17px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1200px) {
+
+            .navbar > a:nth-of-type(n+3) {
+                display: none;
             }
 
-            .language-popup-box {
-                padding: 25px 17px;
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                max-width: 800px;
+            }
+
+            .dashboard {
+                width: min(600px,100%);
+            }
+
+            .board-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+        }
+
+
+        @media (max-width: 850px) {
+
+            .header-theme {
+                margin-left: auto;
+            }
+
+            .navbar > a {
+                display: none;
+            }
+
+            .navbar {
+                margin-left: 5px;
+            }
+
+            .auth-buttons {
+                margin-left: 8px;
+            }
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .section {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .search-section {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .features-grid {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header {
+                padding: 0 14px;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .logo-mark {
+                width: 34px;
+                height: 34px;
+            }
+
+            .header-theme {
+                display: none;
+            }
+
+            .auth-buttons {
+                margin-left: auto;
+            }
+
+            .auth-btn {
+                height: 36px;
+                padding: 0 9px;
+                font-size: 10px;
+            }
+
+            .hero {
+                min-height: auto;
+
+                padding:
+                    125px 20px 55px;
+
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+                letter-spacing: -2.8px;
+            }
+
+            .hero-description {
+                font-size: 13px;
+            }
+
+            .dashboard {
+                transform: none;
+
+                padding: 15px;
+
                 border-radius: 18px;
             }
 
-            .language-popup-box h2 {
-                font-size: 23px;
+            .book-scene {
+                display: none;
             }
 
-            .language-options {
-                max-height: 55vh;
+            .section {
+                padding:
+                    65px 20px;
             }
 
-            .extra-setting-card {
-                min-height: 64px;
-                padding: 11px 12px;
+            .search-section {
+                padding:
+                    0 20px 55px;
+            }
+
+            .board-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .support-box {
+                padding: 27px;
+            }
+
+            .notification-panel {
+                right: 15px;
             }
         }
+
+
+        @media (max-width: 450px) {
+
+            .logo-text {
+                display: none;
+            }
+
+            .auth-btn {
+                padding: 0 8px;
+                font-size: 9px;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+        }
+
     </style>
+
 </head>
 
 
 <body>
 
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-    <header class="header">
+<header class="header">
+
+    <button
+        class="menu-btn"
+        id="menuButton"
+        type="button"
+    >
+        ☰
+    </button>
+
+
+    <a href="#home" class="logo">
+
+        <span class="logo-mark">
+            SH
+        </span>
+
+        <span class="logo-text">
+            Student<span>Hub4U</span>
+        </span>
+
+    </a>
+
+
+    <div class="header-theme">
 
         <button
-            class="menu-btn"
-            id="menuButton"
+            id="darkMode"
+            class="header-theme-btn active"
             type="button"
-            aria-label="Open menu"
         >
-            ☰
+            🌙 Dark
         </button>
 
-        <div class="logo">
-            <span>Student</span>Hub4U
-        </div>
+        <button
+            id="lightMode"
+            class="header-theme-btn"
+            type="button"
+        >
+            ☀️ Light
+        </button>
 
-        <nav class="navbar">
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#boards">
-                Bihar Board
-            </a>
-
-            <a href="#features">
-                Features
-            </a>
-
-            <a href="#support">
-                Support
-            </a>
-
-        </nav>
-
-    </header>
+    </div>
 
 
-    <!-- =====================================================
-         MENU OVERLAY
-    ====================================================== -->
+    <nav class="navbar">
 
-    <div
-        class="menu-overlay"
-        id="menuOverlay"
-    ></div>
+        <a href="#home">
+            Home
+        </a>
 
 
-    <!-- =====================================================
-         SIDE MENU
-    ====================================================== -->
-
-    <aside
-        class="side-menu"
-        id="sideMenu"
-    >
-
-        <div class="side-menu-header">
-
-            <div class="side-logo">
-                <span>Student</span>Hub4U
-            </div>
-
-            <button
-                class="close-btn"
-                id="closeButton"
-                type="button"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="side-menu-links">
-
-            <a
-                href="#home"
-                class="side-link"
-            >
-                <span class="side-icon">⌂</span>
-                <span>Home</span>
-            </a>
-
-
-            <a
-                href="#boards"
-                class="side-link"
-            >
-                <span class="side-icon">▣</span>
-                <span>Bihar Board</span>
-            </a>
-
-
-            <a
-                href="#features"
-                class="side-link"
-            >
-                <span class="side-icon">◈</span>
-                <span>Study Features</span>
-            </a>
-
-
-            <button
-                class="side-link side-button"
-                id="settingsButton"
-                type="button"
-            >
-                <span class="side-icon">⚙</span>
-
-                <span>
-                    Settings
-                </span>
-
-                <span class="settings-arrow">
-                    ›
-                </span>
-
-            </button>
-
-        </div>
-
-
-        <!-- =================================================
-             SETTINGS PANEL
-        ================================================== -->
-
-        <div
-            class="settings-panel"
-            id="settingsPanel"
+        <button
+            class="notification-nav-btn"
+            id="notificationButton"
+            type="button"
         >
 
-            <div class="settings-title">
+            <span class="notification-icon">
 
-                <button
-                    class="settings-back"
-                    id="settingsBack"
-                    type="button"
-                >
-                    ←
-                </button>
+                <svg viewBox="0 0 24 24">
 
-                <div>
+                    <path
+                        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9">
+                    </path>
 
-                    <span>
-                        SETTINGS
-                    </span>
+                    <path d="M10 21h4"></path>
 
-                    <h3>
-                        Website Settings
-                    </h3>
+                </svg>
 
-                </div>
-
-            </div>
-
-
-            <!-- APPEARANCE -->
-
-            <div class="setting-box">
-
-                <div class="setting-heading">
-
-                    <span>
-                        Appearance
-                    </span>
-
-                    <small>
-                        Theme
-                    </small>
-
-                </div>
-
-
-                <div class="theme-buttons">
-
-                    <button
-                        id="darkMode"
-                        class="theme-btn active"
-                        type="button"
-                    >
-                        🌙 Dark
-                    </button>
-
-
-                    <button
-                        id="lightMode"
-                        class="theme-btn"
-                        type="button"
-                    >
-                        ☀ Light
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- TEXT SIZE -->
-
-            <div class="setting-box">
-
-                <div class="setting-heading">
-
-                    <span>
-                        Text Size
-                    </span>
-
-                    <small>
-                        Reading
-                    </small>
-
-                </div>
-
-
-                <div class="text-size-buttons">
-
-                    <button
-                        id="textSmall"
-                        type="button"
-                    >
-                        A
-                    </button>
-
-                    <button
-                        id="textNormal"
-                        class="active"
-                        type="button"
-                    >
-                        A
-                    </button>
-
-                    <button
-                        id="textLarge"
-                        type="button"
-                    >
-                        A
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- EXTRA SETTINGS -->
-
-            <div class="extra-settings">
-
-
-                <!-- NOTIFICATIONS -->
-
-                <button
-                    class="extra-setting-card"
-                    type="button"
-                    onclick="settingComingSoon('Notifications')"
-                >
-
-                    <span class="extra-setting-icon">
-                        🔔
-                    </span>
-
-                    <span class="extra-setting-content">
-
-                        <strong>
-                            Notifications
-                        </strong>
-
-                        <small>
-                            Important exam updates aur notices
-                        </small>
-
-                    </span>
-
-                    <span class="extra-setting-arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-                <!-- LANGUAGE -->
-
-                <button
-                    class="extra-setting-card"
-                    type="button"
-                    id="languageSetting"
-                >
-
-                    <span class="extra-setting-icon">
-                        🌐
-                    </span>
-
-                    <span class="extra-setting-content">
-
-                        <strong>
-                            Language
-                        </strong>
-
-                        <small id="currentLanguageText">
-                            Hindi
-                        </small>
-
-                    </span>
-
-                    <span class="extra-setting-arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-                <!-- ABOUT -->
-
-                <button
-                    class="extra-setting-card"
-                    type="button"
-                    onclick="settingComingSoon('About StudentHub4U')"
-                >
-
-                    <span class="extra-setting-icon">
-                        ℹ
-                    </span>
-
-                    <span class="extra-setting-content">
-
-                        <strong>
-                            About StudentHub4U
-                        </strong>
-
-                        <small>
-                            Website aur platform ki information
-                        </small>
-
-                    </span>
-
-                    <span class="extra-setting-arrow">
-                        →
-                    </span>
-
-                </button>
-
-
-                <!-- SUPPORT -->
-
-                <button
-                    class="extra-setting-card"
-                    type="button"
-                    onclick="settingComingSoon('Support & Help')"
-                >
-
-                    <span class="extra-setting-icon">
-                        💬
-                    </span>
-
-                    <span class="extra-setting-content">
-
-                        <strong>
-                            Support & Help
-                        </strong>
-
-                        <small>
-                            Help aur support ke liye
-                        </small>
-
-                    </span>
-
-                    <span class="extra-setting-arrow">
-                        →
-                    </span>
-
-                </button>
-
-            </div>
-
-
-            <!-- RESET -->
-
-            <button
-                class="reset-settings"
-                id="resetSettings"
-                type="button"
-            >
-                Reset Settings
-            </button>
-
-
-            <div class="settings-info">
-
-                <span>
-                    STUDENTHUB4U
+                <span class="notification-badge">
+                    3
                 </span>
 
-                <p>
-                    Premium Bihar Board
-                    learning platform.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- MENU FOOTER -->
-
-        <div class="side-menu-footer">
-
-            <a
-                href="#support"
-                class="support-menu-link"
-            >
-                💬 Support
-            </a>
-
-            <p>
-                StudentHub4U
-            </p>
-
-        </div>
-
-    </aside>
-
-
-    <!-- =====================================================
-         LANGUAGE POPUP
-    ====================================================== -->
-
-    <div
-        class="language-popup"
-        id="languagePopup"
-    >
-
-        <div class="language-popup-box">
-
-            <button
-                class="language-close"
-                id="languageClose"
-                type="button"
-            >
-                ×
-            </button>
-
-
-            <span class="language-small-title">
-                LANGUAGE
             </span>
 
+            <span>
+                Notifications
+            </span>
 
-            <h2>
-                Select Language
-            </h2>
+        </button>
 
+    </nav>
+
+
+    <!-- SIGN IN / SIGN UP -->
+
+    <div class="auth-buttons">
+
+        <a
+            href="/signin"
+            class="auth-btn auth-signin"
+        >
+            Sign In
+        </a>
+
+        <a
+            href="/signup"
+            class="auth-btn auth-signup"
+        >
+            Sign Up
+        </a>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     SIDE MENU
+===================================================== -->
+
+<div
+    class="overlay"
+    id="overlay"
+></div>
+
+
+<aside
+    class="side-menu"
+    id="sideMenu"
+>
+
+    <div class="side-menu-head">
+
+        <div class="side-brand">
+
+            <div class="side-brand-mark">
+                SH
+            </div>
+
+            <div class="side-brand-text">
+                Student<span>Hub4U</span>
+            </div>
+
+        </div>
+
+        <button
+            class="close-menu"
+            id="closeButton"
+            type="button"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="menu-label">
+        MAIN
+    </div>
+
+
+    <a href="#home">
+        <span class="menu-icon">H</span>
+        Home
+    </a>
+
+
+    <a href="#boards">
+        <span class="menu-icon">B</span>
+        Bihar Board
+    </a>
+
+
+    <a href="class9.html">
+        <span class="menu-icon">09</span>
+        Class 9
+    </a>
+
+
+    <a href="class10.html">
+        <span class="menu-icon">10</span>
+        Class 10
+    </a>
+
+
+    <a href="class11.html">
+        <span class="menu-icon">11</span>
+        Class 11
+    </a>
+
+
+    <a href="class12.html">
+        <span class="menu-icon">12</span>
+        Class 12
+    </a>
+
+
+    <div class="menu-label">
+        STUDY
+    </div>
+
+
+    <a href="notes.html">
+        <span class="menu-icon">N</span>
+        Notes
+    </a>
+
+
+    <a href="#features">
+        <span class="menu-icon">Q</span>
+        Smart Quiz
+    </a>
+
+
+    <a href="#features">
+        <span class="menu-icon">PY</span>
+        PYQ
+    </a>
+
+
+    <a href="updates.html">
+        <span class="menu-icon">U</span>
+        Exam Updates
+    </a>
+
+
+    <div class="menu-label">
+        ACCOUNT
+    </div>
+
+
+    <a href="/signin">
+        <span class="menu-icon">↪</span>
+        Sign In
+    </a>
+
+
+    <a href="/signup">
+        <span class="menu-icon">+</span>
+        Create Account
+    </a>
+
+
+    <div class="menu-label">
+        SETTINGS
+    </div>
+
+
+    <button
+        id="settingsButton"
+        type="button"
+    >
+        <span class="menu-icon">S</span>
+        Settings
+    </button>
+
+
+    <button
+        id="languageButton"
+        type="button"
+    >
+        <span class="menu-icon">A</span>
+        Language
+    </button>
+
+
+    <button
+        id="menuNotificationButton"
+        type="button"
+    >
+        <span class="menu-icon">N</span>
+        Notifications
+    </button>
+
+
+    <button
+        id="supportButton"
+        type="button"
+    >
+        <span class="menu-icon">?</span>
+        Support
+    </button>
+
+
+    <button
+        id="aboutButton"
+        type="button"
+    >
+        <span class="menu-icon">i</span>
+        About StudentHub4U
+    </button>
+
+</aside>
+
+
+
+<!-- =====================================================
+     NOTIFICATION PANEL
+===================================================== -->
+
+<div
+    class="notification-panel"
+    id="notificationPanel"
+>
+
+    <div class="notification-panel-header">
+
+        <div class="notification-panel-title">
+
+            <div class="notification-panel-title-icon">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9">
+                    </path>
+
+                    <path d="M10 21h4"></path>
+
+                </svg>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <span>
+                    Latest StudentHub4U updates
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="notification-close"
+            id="notificationClose"
+            type="button"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="notification-item">
+
+        <div class="notification-item-icon">
+            N
+        </div>
+
+        <div class="notification-item-content">
+
+            <strong>
+                New study resources available
+            </strong>
 
             <p>
-                Apni preferred website language choose karein.
+                Bihar Board ke liye naye study resources
+                available hain.
             </p>
 
-
-            <input
-                type="search"
-                id="languageSearch"
-                class="language-search"
-                placeholder="Search language..."
-                autocomplete="off"
-            >
-
-
-            <div
-                class="language-options"
-                id="languageOptions"
-            >
-
-                <!-- LANGUAGES WILL BE CREATED BY JAVASCRIPT -->
-
-            </div>
-
-
-            <div
-                class="language-empty"
-                id="languageEmpty"
-            >
-                Language nahi mili.
-            </div>
+            <span class="notification-time">
+                Recently
+            </span>
 
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
+    <div class="notification-item">
 
-    <main>
+        <div class="notification-item-icon">
+            Q
+        </div>
 
+        <div class="notification-item-content">
 
-        <!-- HERO -->
+            <strong>
+                Quiz practice updated
+            </strong>
 
-        <section
-            class="hero"
-            id="home"
-        >
+            <p>
+                Chapter-wise quiz practice regularly
+                update ki ja rahi hai.
+            </p>
 
-            <div class="hero-content">
+            <span class="notification-time">
+                Today
+            </span>
 
-                <div class="small-title">
-                    PREMIUM EDUCATION PLATFORM
-                </div>
+        </div>
 
+    </div>
 
-                <h1>
-                    Welcome to
-                    <span>
-                        StudentHub4U
-                    </span>
-                </h1>
 
+    <div class="notification-item">
 
-                <p>
-                    Bihar Board students ke liye
-                    Notes, PYQ, Previous Year Papers,
-                    Chapter-wise Quiz aur Study Resources
-                    ek hi premium platform par.
-                </p>
+        <div class="notification-item-icon">
+            U
+        </div>
 
+        <div class="notification-item-content">
 
-                <div class="hero-buttons">
+            <strong>
+                StudentHub4U updates
+            </strong>
 
-                    <a
-                        href="#boards"
-                        class="primary-btn"
-                    >
-                        Start Learning
-                    </a>
+            <p>
+                Important exam updates aur study
+                information yahan milegi.
+            </p>
 
+            <span class="notification-time">
+                Recently
+            </span>
 
-                    <a
-                        href="#features"
-                        class="secondary-btn"
-                    >
-                        Explore Features
-                    </a>
+        </div>
 
-                </div>
+    </div>
 
-            </div>
+</div>
 
-        </section>
 
 
-        <!-- BIHAR BOARD -->
+<!-- =====================================================
+     SETTINGS PANEL
+===================================================== -->
 
-        <section
-            class="boards-section"
-            id="boards"
-        >
+<div
+    class="settings-panel"
+    id="settingsPanel"
+>
 
-            <div class="section-heading">
+    <h2>
+        Website Settings
+    </h2>
 
-                <span>
-                    BIHAR BOARD
-                </span>
+    <p>
+        StudentHub4U ko apni preference ke according customize karein.
+    </p>
 
-                <h2>
-                    Start Your Learning
-                </h2>
 
-                <p>
-                    Bihar Board select karke
-                    apni class choose karein.
-                </p>
+    <div class="setting-row">
 
-            </div>
+        <strong>
+            Text Size
+        </strong>
 
+        <div class="setting-buttons">
 
-            <div class="premium-board-container">
+            <button
+                class="setting-option"
+                data-size="small"
+            >
+                Small
+            </button>
 
-                <a
-                    href="board.html"
-                    class="premium-board-card"
-                >
+            <button
+                class="setting-option"
+                data-size="medium"
+            >
+                Medium
+            </button>
 
-                    <div class="premium-board-glow"></div>
+            <button
+                class="setting-option"
+                data-size="large"
+            >
+                Large
+            </button>
 
+        </div>
 
-                    <div class="premium-board-icon">
-                        B
-                    </div>
+    </div>
 
 
-                    <div class="premium-board-content">
+    <div class="setting-row">
 
-                        <span>
-                            OFFICIAL STUDY SECTION
-                        </span>
+        <strong>
+            Notifications
+        </strong>
 
-                        <h3>
-                            Bihar Board
-                        </h3>
+        <div class="setting-buttons">
 
-                        <p>
-                            Class 9 • 10 • 11 • 12
-                        </p>
+            <button
+                class="setting-option"
+                id="enableNotifications"
+            >
+                Enable
+            </button>
 
-                    </div>
+            <button
+                class="setting-option"
+                id="disableNotifications"
+            >
+                Disable
+            </button>
 
+        </div>
 
-                    <div class="premium-board-arrow">
-                        →
-                    </div>
+    </div>
 
-                </a>
 
-            </div>
+    <div class="setting-row">
 
-        </section>
+        <strong>
+            Language
+        </strong>
 
+        <div class="setting-buttons">
 
-        <!-- FEATURES -->
+            <button
+                class="setting-option"
+                id="settingsLanguage"
+            >
+                Choose Language
+            </button>
 
-        <section
-            class="features-section"
-            id="features"
-        >
+        </div>
 
-            <div class="section-heading">
+    </div>
 
-                <span>
-                    STUDY SMARTER
-                </span>
 
-                <h2>
-                    Everything You Need
-                </h2>
+    <button
+        class="settings-close"
+        id="settingsClose"
+        type="button"
+    >
+        Close Settings
+    </button>
 
-                <p>
-                    Padhai se related important resources
-                    ek organized platform par.
-                </p>
+</div>
 
-            </div>
 
 
-            <div class="features-grid">
+<!-- =====================================================
+     LANGUAGE POPUP
+===================================================== -->
 
+<div
+    class="language-popup"
+    id="languagePopup"
+>
 
-                <div class="feature-card">
+    <h2>
+        Choose Language
+    </h2>
 
-                    <div class="feature-number">
-                        01
-                    </div>
+    <p>
+        StudentHub4U ke liye preferred language select karein.
+    </p>
 
-                    <h3>
-                        Notes
-                    </h3>
 
-                    <p>
-                        Class aur subject ke according
-                        study notes.
-                    </p>
+    <div class="language-grid">
 
-                </div>
+        <button class="language-option">
+            English
+        </button>
 
+        <button class="language-option">
+            हिन्दी
+        </button>
 
-                <div class="feature-card">
+        <button class="language-option">
+            বাংলা
+        </button>
 
-                    <div class="feature-number">
-                        02
-                    </div>
+        <button class="language-option">
+            मराठी
+        </button>
 
-                    <h3>
-                        PYQ & Papers
-                    </h3>
+        <button class="language-option">
+            ગુજરાતી
+        </button>
 
-                    <p>
-                        Previous year questions aur
-                        previous year papers.
-                    </p>
+        <button class="language-option">
+            ਪੰਜਾਬੀ
+        </button>
 
-                </div>
+        <button class="language-option">
+            தமிழ்
+        </button>
 
+        <button class="language-option">
+            తెలుగు
+        </button>
 
-                <div class="feature-card">
+        <button class="language-option">
+            ಕನ್ನಡ
+        </button>
 
-                    <div class="feature-number">
-                        03
-                    </div>
+        <button class="language-option">
+            മലയാളം
+        </button>
 
-                    <h3>
-                        Smart Quiz
-                    </h3>
+        <button class="language-option">
+            ଓଡ଼ିଆ
+        </button>
 
-                    <p>
-                        Chapter-wise objective quiz
-                        aur instant result.
-                    </p>
+        <button class="language-option">
+            অসমীয়া
+        </button>
 
-                </div>
+    </div>
 
 
-                <div class="feature-card">
+    <button
+        class="language-close"
+        id="languageClose"
+        type="button"
+    >
+        Close
+    </button>
 
-                    <div class="feature-number">
-                        04
-                    </div>
+</div>
 
-                    <h3>
-                        Study Tools
-                    </h3>
 
-                    <p>
-                        Students ke useful study
-                        tools ek jagah.
-                    </p>
 
-                </div>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
+<main>
 
-                <div class="feature-card">
+<section
+    class="hero"
+    id="home"
+>
 
-                    <div class="feature-number">
-                        05
-                    </div>
+    <div class="hero-content">
 
-                    <h3>
-                        Syllabus
-                    </h3>
+        <div class="hero-badge">
+            BIHAR BOARD • STUDENT PLATFORM
+        </div>
 
-                    <p>
-                        Bihar Board ka complete syllabus
-                        class aur subject ke according.
-                    </p>
 
-                </div>
+        <h1>
 
-
-                <div class="feature-card">
-
-                    <div class="feature-number">
-                        06
-                    </div>
-
-                    <h3>
-                        Important Questions
-                    </h3>
-
-                    <p>
-                        Exam preparation ke liye
-                        important questions aur practice.
-                    </p>
-
-                </div>
-
-
-                <div class="feature-card">
-
-                    <div class="feature-number">
-                        07
-                    </div>
-
-                    <h3>
-                        PDF Resources
-                    </h3>
-
-                    <p>
-                        Notes, papers aur useful
-                        study PDFs ek jagah.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="updates.html"
-                    class="feature-card exam-update-card"
-                >
-
-                    <div class="feature-number">
-                        08
-                    </div>
-
-                    <h3>
-                        Exam Updates
-                    </h3>
-
-                    <p>
-                        Board exam se related
-                        important updates aur notices.
-                    </p>
-
-                    <div class="feature-card-arrow">
-                        →
-                    </div>
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- SUPPORT -->
-
-        <section
-            class="support-section"
-            id="support"
-        >
-
-            <div class="support-box">
-
-                <span>
-                    NEED HELP?
-                </span>
-
-                <h2>
-                    StudentHub4U Support
-                </h2>
-
-                <p>
-                    Website ke updates aur support ke liye
-                    hamare official channel se connected raho.
-                </p>
-
-                <a
-                    class="support-btn"
-                    href="https://whatsapp.com/channel/0029Vb90qfZ0bIdwKwnjPZ2k"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    WhatsApp Support
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer class="footer">
-
-        <div class="logo footer-logo">
+            Learn Better.
 
             <span>
-                Student
-            </span>Hub4U
+                Score Better.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            StudentHub4U Bihar Board students ke liye
+            ek modern study platform hai jahan Notes,
+            PDF, PYQ, Quiz, Chapters aur important
+            exam resources ek hi jagah par access
+            kar sakte hain.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+            <a
+                href="#boards"
+                class="primary-btn"
+            >
+                Explore Bihar Board →
+            </a>
+
+
+            <a
+                href="updates.html"
+                class="secondary-btn"
+            >
+                Latest Updates
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOOK BACKGROUND -->
+
+    <div class="book-scene">
+
+        <div class="book book-1"></div>
+        <div class="book book-2"></div>
+        <div class="book book-3"></div>
+
+    </div>
+
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard-wrap">
+
+        <div class="dashboard-glow"></div>
+
+
+        <div class="dashboard">
+
+            <div class="dashboard-head">
+
+                <div class="student-profile">
+
+                    <div class="student-avatar">
+                        SH
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Student Dashboard
+                        </strong>
+
+                        <span>
+                            Bihar Board • Class 9
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="active-pill">
+                    ● ACTIVE
+                </div>
+
+            </div>
+
+
+            <div class="progress-box">
+
+                <div class="progress-title">
+
+                    <span>
+                        Study Progress
+                    </span>
+
+                    <strong>
+                        68%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div class="progress-value"></div>
+
+                </div>
+
+            </div>
+
+
+            <div class="subjects-grid">
+
+                <div class="subject-card">
+
+                    <div class="subject-icon">
+                        H
+                    </div>
+
+                    <strong>
+                        Hindi
+                    </strong>
+
+                    <span>
+                        Notes & Chapters
+                    </span>
+
+                </div>
+
+
+                <div class="subject-card">
+
+                    <div class="subject-icon">
+                        M
+                    </div>
+
+                    <strong>
+                        Mathematics
+                    </strong>
+
+                    <span>
+                        Practice & Quiz
+                    </span>
+
+                </div>
+
+
+                <div class="subject-card">
+
+                    <div class="subject-icon">
+                        S
+                    </div>
+
+                    <strong>
+                        Science
+                    </strong>
+
+                    <span>
+                        PDF Resources
+                    </span>
+
+                </div>
+
+
+                <div class="subject-card">
+
+                    <div class="subject-icon">
+                        SS
+                    </div>
+
+                    <strong>
+                        Social Science
+                    </strong>
+
+                    <span>
+                        PYQ & Important
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-grid">
+
+                <div class="quick-card">
+
+                    <strong>
+                        NOTES
+                    </strong>
+
+                    <span>
+                        Study
+                    </span>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <strong>
+                        PYQ
+                    </strong>
+
+                    <span>
+                        Practice
+                    </span>
+
+                </div>
+
+
+                <div class="quick-card">
+
+                    <strong>
+                        QUIZ
+                    </strong>
+
+                    <span>
+                        Test
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SEARCH
+===================================================== -->
+
+<section class="search-section">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search class, subject, notes, quiz..."
+            autocomplete="off"
+        >
+
+
+        <button
+            class="search-button"
+            id="searchButton"
+            type="button"
+        >
+            Search
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BIHAR BOARD
+===================================================== -->
+
+<section
+    class="section"
+    id="boards"
+>
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            Bihar Board
+        </div>
+
+        <h2>
+            Choose Your Class
+        </h2>
+
+        <p>
+            Apni class select karein aur us class ke
+            Notes, Chapters, PDF, PYQ aur Quiz resources
+            access karein.
+        </p>
+
+    </div>
+
+
+    <div class="board-grid">
+
+
+        <a
+            href="class9.html"
+            class="board-card"
+        >
+
+            <div>
+
+                <div class="board-number">
+                    09
+                </div>
+
+                <h3>
+                    Class 9
+                </h3>
+
+                <p>
+                    Bihar Board Class 9 ke complete
+                    study resources.
+                </p>
+
+            </div>
+
+            <span class="board-card-link">
+                Open Class →
+            </span>
+
+        </a>
+
+
+
+        <a
+            href="class10.html"
+            class="board-card"
+        >
+
+            <div>
+
+                <div class="board-number">
+                    10
+                </div>
+
+                <h3>
+                    Class 10
+                </h3>
+
+                <p>
+                    Board exam preparation ke liye
+                    study resources.
+                </p>
+
+            </div>
+
+            <span class="board-card-link">
+                Open Class →
+            </span>
+
+        </a>
+
+
+
+        <a
+            href="class11.html"
+            class="board-card"
+        >
+
+            <div>
+
+                <div class="board-number">
+                    11
+                </div>
+
+                <h3>
+                    Class 11
+                </h3>
+
+                <p>
+                    Class 11 ke subjects aur
+                    learning resources.
+                </p>
+
+            </div>
+
+            <span class="board-card-link">
+                Open Class →
+            </span>
+
+        </a>
+
+
+
+        <a
+            href="class12.html"
+            class="board-card"
+        >
+
+            <div>
+
+                <div class="board-number">
+                    12
+                </div>
+
+                <h3>
+                    Class 12
+                </h3>
+
+                <p>
+                    Class 12 board preparation ke
+                    liye useful resources.
+                </p>
+
+            </div>
+
+            <span class="board-card-link">
+                Open Class →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    class="section"
+    id="features"
+>
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            Study Tools
+        </div>
+
+        <h2>
+            Everything You Need To Study
+        </h2>
+
+        <p>
+            StudentHub4U ka goal hai ki important
+            study resources ek organised platform par milein.
+        </p>
+
+    </div>
+
+
+    <div class="features-grid">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                N
+            </div>
+
+            <h3>
+                Chapter Notes
+            </h3>
+
+            <p>
+                Chapter-wise notes ko simple aur
+                organised format me access karein.
+            </p>
 
         </div>
 
 
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                PDF
+            </div>
+
+            <h3>
+                PDF Resources
+            </h3>
+
+            <p>
+                Useful study PDFs ko ek hi jagah
+                se access karein.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                Q
+            </div>
+
+            <h3>
+                Smart Quiz
+            </h3>
+
+            <p>
+                Chapter-wise objective questions ke
+                through practice karein.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                PY
+            </div>
+
+            <h3>
+                Previous Year Questions
+            </h3>
+
+            <p>
+                Previous year questions ke through
+                exam pattern ko samjhein.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                IQ
+            </div>
+
+            <h3>
+                Important Questions
+            </h3>
+
+            <p>
+                Important practice questions ko
+                organised way me dekhein.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                U
+            </div>
+
+            <h3>
+                Exam Updates
+            </h3>
+
+            <p>
+                Exam related updates aur important
+                information ko follow karein.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUPPORT
+===================================================== -->
+
+<section
+    class="section"
+    id="support"
+>
+
+    <div class="support-box">
+
+        <h2>
+            Need Help?
+        </h2>
+
         <p>
-            © 2026 StudentHub4U.
-            All Rights Reserved.
+            StudentHub4U se related kisi bhi problem,
+            suggestion ya support ke liye contact
+            kar sakte hain.
         </p>
 
-    </footer>
-
-
-    <!-- =====================================================
-         LANGUAGE SYSTEM
-    ====================================================== -->
-
-    <script>
-
-        /* =====================================================
-           LANGUAGE LIST
-           100+ LANGUAGES
-        ====================================================== */
-
-        const languages = [
-
-            ["Hindi", "हिन्दी", "🇮🇳"],
-            ["English", "English", "🌐"],
-            ["Bengali", "বাংলা", "🇧🇩"],
-            ["Urdu", "اردو", "🇵🇰"],
-            ["Nepali", "नेपाली", "🇳🇵"],
-            ["Marathi", "मराठी", "🇮🇳"],
-            ["Gujarati", "ગુજરાતી", "🇮🇳"],
-            ["Punjabi", "ਪੰਜਾਬੀ", "🇮🇳"],
-            ["Tamil", "தமிழ்", "🇮🇳"],
-            ["Telugu", "తెలుగు", "🇮🇳"],
-            ["Kannada", "ಕನ್ನಡ", "🇮🇳"],
-            ["Malayalam", "മലയാളം", "🇮🇳"],
-            ["Odia", "ଓଡ଼ିଆ", "🇮🇳"],
-            ["Assamese", "অসমীয়া", "🇮🇳"],
-            ["Maithili", "मैथिली", "🇮🇳"],
-            ["Sanskrit", "संस्कृतम्", "🇮🇳"],
-
-            ["Arabic", "العربية", "🇸🇦"],
-            ["Persian", "فارسی", "🇮🇷"],
-            ["Turkish", "Türkçe", "🇹🇷"],
-            ["Hebrew", "עברית", "🇮🇱"],
-            ["French", "Français", "🇫🇷"],
-            ["German", "Deutsch", "🇩🇪"],
-            ["Spanish", "Español", "🇪🇸"],
-            ["Portuguese", "Português", "🇵🇹"],
-            ["Italian", "Italiano", "🇮🇹"],
-            ["Dutch", "Nederlands", "🇳🇱"],
-            ["Greek", "Ελληνικά", "🇬🇷"],
-            ["Russian", "Русский", "🇷🇺"],
-            ["Ukrainian", "Українська", "🇺🇦"],
-            ["Polish", "Polski", "🇵🇱"],
-            ["Czech", "Čeština", "🇨🇿"],
-            ["Slovak", "Slovenčina", "🇸🇰"],
-            ["Hungarian", "Magyar", "🇭🇺"],
-            ["Romanian", "Română", "🇷🇴"],
-            ["Bulgarian", "Български", "🇧🇬"],
-            ["Serbian", "Српски", "🇷🇸"],
-            ["Croatian", "Hrvatski", "🇭🇷"],
-            ["Bosnian", "Bosanski", "🇧🇦"],
-            ["Slovenian", "Slovenščina", "🇸🇮"],
-            ["Albanian", "Shqip", "🇦🇱"],
-            ["Lithuanian", "Lietuvių", "🇱🇹"],
-            ["Latvian", "Latviešu", "🇱🇻"],
-            ["Estonian", "Eesti", "🇪🇪"],
-            ["Finnish", "Suomi", "🇫🇮"],
-            ["Swedish", "Svenska", "🇸🇪"],
-            ["Norwegian", "Norsk", "🇳🇴"],
-            ["Danish", "Dansk", "🇩🇰"],
-            ["Icelandic", "Íslenska", "🇮🇸"],
-            ["Irish", "Gaeilge", "🇮🇪"],
-            ["Welsh", "Cymraeg", "🏴"],
-
-            ["Chinese", "中文", "🇨🇳"],
-            ["Japanese", "日本語", "🇯🇵"],
-            ["Korean", "한국어", "🇰🇷"],
-            ["Mongolian", "Монгол", "🇲🇳"],
-            ["Vietnamese", "Tiếng Việt", "🇻🇳"],
-            ["Thai", "ไทย", "🇹🇭"],
-            ["Indonesian", "Bahasa Indonesia", "🇮🇩"],
-            ["Malay", "Bahasa Melayu", "🇲🇾"],
-            ["Filipino", "Filipino", "🇵🇭"],
-            ["Burmese", "မြန်မာ", "🇲🇲"],
-            ["Khmer", "ខ្មែរ", "🇰🇭"],
-            ["Lao", "ລາວ", "🇱🇦"],
-
-            ["Swahili", "Kiswahili", "🌍"],
-            ["Amharic", "አማርኛ", "🇪🇹"],
-            ["Somali", "Soomaali", "🇸🇴"],
-            ["Hausa", "Hausa", "🌍"],
-            ["Yoruba", "Yorùbá", "🌍"],
-            ["Igbo", "Igbo", "🌍"],
-            ["Zulu", "isiZulu", "🇿🇦"],
-            ["Xhosa", "isiXhosa", "🇿🇦"],
-            ["Afrikaans", "Afrikaans", "🇿🇦"],
-
-            ["Kazakh", "Қазақша", "🇰🇿"],
-            ["Uzbek", "O‘zbek", "🇺🇿"],
-            ["Turkmen", "Türkmençe", "🇹🇲"],
-            ["Kyrgyz", "Кыргызча", "🇰🇬"],
-            ["Tajik", "Тоҷикӣ", "🇹🇯"],
-            ["Azerbaijani", "Azərbaycan", "🇦🇿"],
-            ["Georgian", "ქართული", "🇬🇪"],
-            ["Armenian", "Հայերեն", "🇦🇲"],
-
-            ["Pashto", "پښتو", "🇦🇫"],
-            ["Kurdish", "Kurdî", "🌍"],
-            ["Dari", "دری", "🇦🇫"],
-
-            ["Latin", "Latina", "🏛️"],
-            ["Esperanto", "Esperanto", "🌍"],
-            ["Catalan", "Català", "🇪🇸"],
-            ["Basque", "Euskara", "🇪🇸"],
-            ["Galician", "Galego", "🇪🇸"],
-            ["Maltese", "Malti", "🇲🇹"],
-
-            ["Estonian", "Eesti", "🇪🇪"],
-            ["Belarusian", "Беларуская", "🇧🇾"],
-            ["Macedonian", "Македонски", "🇲🇰"],
-            ["Georgian", "ქართული", "🇬🇪"],
-            ["Luxembourgish", "Lëtzebuergesch", "🇱🇺"],
 
-            ["Hawaiian", "ʻŌlelo Hawaiʻi", "🌺"],
-            ["Maori", "Te Reo Māori", "🇳🇿"],
-            ["Samoan", "Gagana Samoa", "🇼🇸"],
-            ["Tongan", "Lea Faka-Tonga", "🇹🇴"],
-            ["Fijian", "Vosa Vakaviti", "🇫🇯"],
+        <div class="support-actions">
 
-            ["Yiddish", "ייִדיש", "🌍"],
-            ["Aramaic", "ܐܪܡܝܐ", "🌍"],
-            ["Pashto", "پښتو", "🇦🇫"],
-            ["Sindhi", "سنڌي", "🇵🇰"],
-            ["Konkani", "कोंकणी", "🇮🇳"],
-            ["Dogri", "डोगरी", "🇮🇳"],
-            ["Kashmiri", "कॉशुर / کٲشُر", "🇮🇳"],
-            ["Bodo", "बड़ो", "🇮🇳"],
-            ["Santali", "ᱥᱟᱱᱛᱟᱲᱤ", "🇮🇳"],
-            ["Manipuri", "মৈতৈলোন", "🇮🇳"],
+            <a
+                class="primary-btn"
+                href="https://whatsapp.com/channel/0029Vb90qfZ0bIdwKwnjPZ2k"
+                target="_blank"
+                rel="noopener"
+            >
+                Join WhatsApp Channel
+            </a>
 
-            ["Sindhi", "सिन्धी", "🇮🇳"],
-            ["Bhojpuri", "भोजपुरी", "🇮🇳"],
-            ["Rajasthani", "राजस्थानी", "🇮🇳"],
-            ["Haryanvi", "हरियाणवी", "🇮🇳"],
-            ["Chhattisgarhi", "छत्तीसगढ़ी", "🇮🇳"],
-            ["Garhwali", "गढ़वाली", "🇮🇳"],
-            ["Kumaoni", "कुमाऊँनी", "🇮🇳"],
 
-            ["Quechua", "Runa Simi", "🌎"],
-            ["Guarani", "Avañe'ẽ", "🌎"],
-            ["Nahuatl", "Nāhuatl", "🌎"],
+            <a
+                class="secondary-btn"
+                href="mailto:ritumehra775@gmail.com"
+            >
+                Email Support
+            </a>
 
-            ["Tibetan", "བོད་ཡིག", "🏔️"],
-            ["Dzongkha", "རྫོང་ཁ", "🇧🇹"],
+        </div>
 
-            ["Malayalam", "മലയാളം", "🇮🇳"],
-            ["Sundanese", "Basa Sunda", "🇮🇩"],
-            ["Javanese", "Basa Jawa", "🇮🇩"],
-            ["Tagalog", "Tagalog", "🇵🇭"],
-            ["Cebuano", "Cebuano", "🇵🇭"],
+    </div>
 
-            ["Scottish Gaelic", "Gàidhlig", "🏴"],
-            ["Frisian", "Frysk", "🇳🇱"],
-            ["Corsican", "Corsu", "🇫🇷"],
-            ["Occitan", "Occitan", "🇫🇷"],
+</section>
 
-            ["Aragonese", "Aragonés", "🇪🇸"],
-            ["Asturian", "Asturianu", "🇪🇸"],
-            ["Sardinian", "Sardu", "🇮🇹"],
+</main>
 
-            ["Breton", "Brezhoneg", "🇫🇷"],
-            ["Faroese", "Føroyskt", "🇫🇴"],
-            ["Greenlandic", "Kalaallisut", "🇬🇱"],
 
-            ["Luxembourgish", "Lëtzebuergesch", "🇱🇺"],
-            ["Romansh", "Rumantsch", "🇨🇭"],
-            ["Occitan", "Occitan", "🇫🇷"]
 
-        ];
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
+<footer class="footer">
 
-        /* =====================================================
-           ELEMENTS
-        ====================================================== */
+    © 2026
+    <strong>
+        StudentHub4U
+    </strong>
 
-        const languageSetting =
-            document.getElementById("languageSetting");
+    — Bihar Board Student Platform
 
-        const languagePopup =
-            document.getElementById("languagePopup");
+</footer>
 
-        const languageClose =
-            document.getElementById("languageClose");
 
-        const languageOptions =
-            document.getElementById("languageOptions");
 
-        const languageSearch =
-            document.getElementById("languageSearch");
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
-        const languageEmpty =
-            document.getElementById("languageEmpty");
+<script>
 
-        const currentLanguageText =
-            document.getElementById("currentLanguageText");
+    /* MENU */
 
+    const menuButton =
+        document.getElementById("menuButton");
 
-        /* =====================================================
-           CURRENT LANGUAGE
-        ====================================================== */
+    const sideMenu =
+        document.getElementById("sideMenu");
 
-        let currentLanguage =
-            localStorage.getItem("websiteLanguage") || "Hindi";
+    const closeButton =
+        document.getElementById("closeButton");
 
+    const overlay =
+        document.getElementById("overlay");
 
-        /* =====================================================
-           CREATE LANGUAGE LIST
-        ====================================================== */
 
-        function createLanguageList(searchText = "") {
+    function openMenu() {
 
-            languageOptions.innerHTML = "";
+        sideMenu.classList.add("active");
+        overlay.classList.add("active");
 
-            const search =
-                searchText
-                    .trim()
-                    .toLowerCase();
+    }
 
-            let found = 0;
 
-            languages.forEach(function(language) {
+    function closeMenu() {
 
-                const englishName = language[0];
-                const nativeName = language[1];
-                const icon = language[2];
+        sideMenu.classList.remove("active");
+        overlay.classList.remove("active");
 
-                if (
-                    search &&
-                    !englishName.toLowerCase().includes(search) &&
-                    !nativeName.toLowerCase().includes(search)
-                ) {
-                    return;
-                }
+    }
 
-                found++;
 
-                const button =
-                    document.createElement("button");
+    menuButton.addEventListener(
+        "click",
+        openMenu
+    );
 
-                button.type = "button";
 
-                button.className =
-                    "language-option";
+    closeButton.addEventListener(
+        "click",
+        closeMenu
+    );
 
-                if (
-                    englishName === currentLanguage
-                ) {
-                    button.classList.add("selected");
-                }
 
-                button.dataset.language =
-                    englishName;
+    overlay.addEventListener(
+        "click",
+        closeMenu
+    );
 
-                button.innerHTML = `
 
-                    <span class="language-icon">
-                        ${icon}
-                    </span>
 
-                    <span class="language-name">
+    /* NOTIFICATIONS */
 
-                        <strong>
-                            ${nativeName}
-                        </strong>
+    const notificationButton =
+        document.getElementById(
+            "notificationButton"
+        );
 
-                        <small>
-                            ${englishName}
-                        </small>
+    const notificationPanel =
+        document.getElementById(
+            "notificationPanel"
+        );
 
-                    </span>
+    const notificationClose =
+        document.getElementById(
+            "notificationClose"
+        );
 
-                    <span class="language-check">
-                        ✓
-                    </span>
+    const menuNotificationButton =
+        document.getElementById(
+            "menuNotificationButton"
+        );
 
-                `;
 
-                button.addEventListener(
-                    "click",
-                    function() {
+    notificationButton.addEventListener(
+        "click",
+        function(event) {
 
-                        selectLanguage(
-                            englishName
-                        );
+            event.stopPropagation();
 
-                    }
-                );
-
-                languageOptions.appendChild(
-                    button
-                );
-
-            });
-
-
-            languageEmpty.style.display =
-                found === 0
-                    ? "block"
-                    : "none";
-        }
-
-
-        /* =====================================================
-           SELECT LANGUAGE
-        ====================================================== */
-
-        function selectLanguage(language) {
-
-            currentLanguage =
-                language;
-
-            localStorage.setItem(
-                "websiteLanguage",
-                language
-            );
-
-
-            if (currentLanguageText) {
-
-                currentLanguageText.textContent =
-                    getNativeLanguageName(
-                        language
-                    );
-
-            }
-
-
-            createLanguageList(
-                languageSearch.value
-            );
-
-
-            /*
-              Hindi aur English ke basic
-              translations abhi built-in hain.
-              Baaki languages ke liye API
-              next step me connect ki jayegi.
-            */
-
-            applyBuiltInTranslation(
-                language
-            );
-
-
-            setTimeout(
-                function() {
-
-                    languagePopup.classList.remove(
-                        "active"
-                    );
-
-                },
-                350
+            notificationPanel.classList.toggle(
+                "active"
             );
 
         }
+    );
 
 
-        /* =====================================================
-           GET NATIVE NAME
-        ====================================================== */
+    notificationClose.addEventListener(
+        "click",
+        function() {
 
-        function getNativeLanguageName(
-            language
-        ) {
+            notificationPanel.classList.remove(
+                "active"
+            );
 
-            const found =
-                languages.find(
-                    item =>
-                        item[0] === language
-                );
-
-            if (found) {
-                return found[1];
-            }
-
-            return language;
         }
+    );
 
 
-        /* =====================================================
-           BASIC BUILT-IN TRANSLATIONS
-        ====================================================== */
+    menuNotificationButton.addEventListener(
+        "click",
+        function() {
 
-        const translations = {
+            closeMenu();
 
-            Hindi: {
+            notificationPanel.classList.add(
+                "active"
+            );
 
-                "Home":
-                    "होम",
-
-                "Bihar Board":
-                    "बिहार बोर्ड",
-
-                "Features":
-                    "फीचर्स",
-
-                "Support":
-                    "सपोर्ट",
-
-                "Study Features":
-                    "स्टडी फीचर्स",
-
-                "Settings":
-                    "सेटिंग्स",
-
-                "Appearance":
-                    "दिखावट",
-
-                "Theme":
-                    "थीम",
-
-                "Dark":
-                    "डार्क",
-
-                "Light":
-                    "लाइट",
-
-                "Text Size":
-                    "टेक्स्ट साइज",
-
-                "Reading":
-                    "पढ़ने के लिए",
-
-                "Notifications":
-                    "नोटिफिकेशन",
-
-                "Language":
-                    "भाषा",
-
-                "About StudentHub4U":
-                    "StudentHub4U के बारे में",
-
-                "Support & Help":
-                    "सपोर्ट और मदद",
-
-                "Reset Settings":
-                    "सेटिंग्स रीसेट करें",
-
-                "Start Learning":
-                    "पढ़ाई शुरू करें",
-
-                "Explore Features":
-                    "फीचर्स देखें",
-
-                "Notes":
-                    "नोट्स",
-
-                "PYQ & Papers":
-                    "PYQ और पेपर",
-
-                "Smart Quiz":
-                    "स्मार्ट क्विज़",
-
-                "Study Tools":
-                    "स्टडी टूल्स",
-
-                "Syllabus":
-                    "सिलेबस",
-
-                "Important Questions":
-                    "महत्वपूर्ण प्रश्न",
-
-                "PDF Resources":
-                    "PDF संसाधन",
-
-                "Exam Updates":
-                    "परीक्षा अपडेट",
-
-                "WhatsApp Support":
-                    "WhatsApp सपोर्ट"
-
-            },
-
-            English: {}
-
-        };
+        }
+    );
 
 
-        /* =====================================================
-           APPLY BUILT-IN TRANSLATION
-        ====================================================== */
-
-        function applyBuiltInTranslation(
-            language
-        ) {
+    document.addEventListener(
+        "click",
+        function(event) {
 
             if (
-                language !== "Hindi" &&
-                language !== "English"
+                notificationPanel.classList.contains(
+                    "active"
+                ) &&
+                !notificationPanel.contains(
+                    event.target
+                ) &&
+                !notificationButton.contains(
+                    event.target
+                )
             ) {
 
-                /*
-                  Other languages will be connected
-                  with translation API.
-                */
-
-                return;
-            }
-
-
-            const dictionary =
-                translations[language];
-
-
-            if (!dictionary) {
-                return;
-            }
-
-
-            const walker =
-                document.createTreeWalker(
-                    document.body,
-                    NodeFilter.SHOW_TEXT
-                );
-
-
-            const nodes = [];
-
-
-            while (
-                walker.nextNode()
-            ) {
-
-                nodes.push(
-                    walker.currentNode
+                notificationPanel.classList.remove(
+                    "active"
                 );
 
             }
 
-
-            nodes.forEach(
-                function(node) {
-
-                    const original =
-                        node.textContent.trim();
+        }
+    );
 
 
-                    if (
-                        dictionary[original]
-                    ) {
 
-                        node.textContent =
-                            node.textContent.replace(
-                                original,
-                                dictionary[original]
-                            );
+    /* THEME */
+
+    const darkMode =
+        document.getElementById("darkMode");
+
+    const lightMode =
+        document.getElementById("lightMode");
+
+
+    function applyTheme(theme) {
+
+        if (theme === "light") {
+
+            document.body.style.background =
+                "#f4f8fb";
+
+            darkMode.classList.remove(
+                "active"
+            );
+
+            lightMode.classList.add(
+                "active"
+            );
+
+        } else {
+
+            document.body.style.background =
+                "#030608";
+
+            lightMode.classList.remove(
+                "active"
+            );
+
+            darkMode.classList.add(
+                "active"
+            );
+
+        }
+
+        localStorage.setItem(
+            "websiteTheme",
+            theme
+        );
+
+    }
+
+
+    darkMode.addEventListener(
+        "click",
+        function() {
+
+            applyTheme("dark");
+
+        }
+    );
+
+
+    lightMode.addEventListener(
+        "click",
+        function() {
+
+            applyTheme("light");
+
+        }
+    );
+
+
+    applyTheme(
+        localStorage.getItem(
+            "websiteTheme"
+        ) || "dark"
+    );
+
+
+
+    /* SETTINGS */
+
+    const settingsButton =
+        document.getElementById(
+            "settingsButton"
+        );
+
+    const settingsPanel =
+        document.getElementById(
+            "settingsPanel"
+        );
+
+    const settingsClose =
+        document.getElementById(
+            "settingsClose"
+        );
+
+
+    settingsButton.addEventListener(
+        "click",
+        function() {
+
+            closeMenu();
+
+            settingsPanel.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+
+    settingsClose.addEventListener(
+        "click",
+        function() {
+
+            settingsPanel.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+
+    /* LANGUAGE */
+
+    const languageButton =
+        document.getElementById(
+            "languageButton"
+        );
+
+    const settingsLanguage =
+        document.getElementById(
+            "settingsLanguage"
+        );
+
+    const languagePopup =
+        document.getElementById(
+            "languagePopup"
+        );
+
+    const languageClose =
+        document.getElementById(
+            "languageClose"
+        );
+
+
+    function openLanguage() {
+
+        languagePopup.classList.add(
+            "active"
+        );
+
+    }
+
+
+    function closeLanguage() {
+
+        languagePopup.classList.remove(
+            "active"
+        );
+
+    }
+
+
+    languageButton.addEventListener(
+        "click",
+        function() {
+
+            closeMenu();
+
+            openLanguage();
+
+        }
+    );
+
+
+    settingsLanguage.addEventListener(
+        "click",
+        openLanguage
+    );
+
+
+    languageClose.addEventListener(
+        "click",
+        closeLanguage
+    );
+
+
+    document.querySelectorAll(
+        ".language-option"
+    ).forEach(
+        function(option) {
+
+            option.addEventListener(
+                "click",
+                function() {
+
+                    localStorage.setItem(
+                        "selectedLanguage",
+                        option.textContent.trim()
+                    );
+
+                    closeLanguage();
+
+                    alert(
+                        "Language selected: " +
+                        option.textContent.trim()
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* TEXT SIZE */
+
+    document.querySelectorAll(
+        ".setting-option[data-size]"
+    ).forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const size =
+                        button.dataset.size;
+
+                    if (size === "small") {
+
+                        document.documentElement.style.fontSize =
+                            "14px";
 
                     }
 
-                }
-            );
+                    if (size === "medium") {
 
+                        document.documentElement.style.fontSize =
+                            "16px";
 
-            document.documentElement.lang =
-                language === "Hindi"
-                    ? "hi"
-                    : "en";
+                    }
 
-        }
+                    if (size === "large") {
 
+                        document.documentElement.style.fontSize =
+                            "18px";
 
-        /* =====================================================
-           OPEN LANGUAGE POPUP
-        ====================================================== */
+                    }
 
-        if (languageSetting) {
-
-            languageSetting.addEventListener(
-                "click",
-                function() {
-
-                    languagePopup.classList.add(
-                        "active"
-                    );
-
-                    createLanguageList();
-
-                    languageSearch.value = "";
-
-                    setTimeout(
-                        function() {
-
-                            languageSearch.focus();
-
-                        },
-                        100
+                    localStorage.setItem(
+                        "websiteTextSize",
+                        size
                     );
 
                 }
             );
 
         }
+    );
 
 
-        /* =====================================================
-           CLOSE
-        ====================================================== */
 
-        if (languageClose) {
+    /* NOTIFICATION SETTINGS */
 
-            languageClose.addEventListener(
-                "click",
-                function() {
+    const enableNotifications =
+        document.getElementById(
+            "enableNotifications"
+        );
 
-                    languagePopup.classList.remove(
-                        "active"
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* =====================================================
-           CLICK OUTSIDE
-        ====================================================== */
-
-        languagePopup.addEventListener(
-            "click",
-            function(event) {
-
-                if (
-                    event.target ===
-                    languagePopup
-                ) {
-
-                    languagePopup.classList.remove(
-                        "active"
-                    );
-
-                }
-
-            }
+    const disableNotifications =
+        document.getElementById(
+            "disableNotifications"
         );
 
 
-        /* =====================================================
-           SEARCH
-        ====================================================== */
+    enableNotifications.addEventListener(
+        "click",
+        function() {
 
-        languageSearch.addEventListener(
-            "input",
-            function() {
+            localStorage.setItem(
+                "notifications",
+                "enabled"
+            );
 
-                createLanguageList(
-                    languageSearch.value
+            alert(
+                "Notifications enabled."
+            );
+
+        }
+    );
+
+
+    disableNotifications.addEventListener(
+        "click",
+        function() {
+
+            localStorage.setItem(
+                "notifications",
+                "disabled"
+            );
+
+            alert(
+                "Notifications disabled."
+            );
+
+        }
+    );
+
+
+
+    /* SUPPORT */
+
+    const supportButton =
+        document.getElementById(
+            "supportButton"
+        );
+
+
+    supportButton.addEventListener(
+        "click",
+        function() {
+
+            closeMenu();
+
+            document
+                .getElementById("support")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+    );
+
+
+
+    /* ABOUT */
+
+    const aboutButton =
+        document.getElementById(
+            "aboutButton"
+        );
+
+
+    aboutButton.addEventListener(
+        "click",
+        function() {
+
+            closeMenu();
+
+            alert(
+                "StudentHub4U Bihar Board students ke liye ek modern study platform hai."
+            );
+
+        }
+    );
+
+
+
+    /* SEARCH */
+
+    const searchInput =
+        document.getElementById(
+            "searchInput"
+        );
+
+    const searchButton =
+        document.getElementById(
+            "searchButton"
+        );
+
+
+    function performSearch() {
+
+        const query =
+            searchInput.value
+                .trim()
+                .toLowerCase();
+
+
+        if (!query) {
+
+            alert(
+                "Please enter something to search."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("class 9") ||
+            query.includes("class9") ||
+            query.includes("9th")
+        ) {
+
+            window.location.href =
+                "class9.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("class 10") ||
+            query.includes("class10") ||
+            query.includes("10th")
+        ) {
+
+            window.location.href =
+                "class10.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("class 11") ||
+            query.includes("class11") ||
+            query.includes("11th")
+        ) {
+
+            window.location.href =
+                "class11.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("class 12") ||
+            query.includes("class12") ||
+            query.includes("12th")
+        ) {
+
+            window.location.href =
+                "class12.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("notes") ||
+            query.includes("note")
+        ) {
+
+            window.location.href =
+                "notes.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("update") ||
+            query.includes("exam")
+        ) {
+
+            window.location.href =
+                "updates.html";
+
+            return;
+
+        }
+
+
+        if (
+            query.includes("bihar") ||
+            query.includes("board")
+        ) {
+
+            document
+                .getElementById("boards")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            return;
+
+        }
+
+
+        alert(
+            "Search result abhi available nahi hai."
+        );
+
+    }
+
+
+    searchButton.addEventListener(
+        "click",
+        performSearch
+    );
+
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                performSearch();
+
+            }
+
+        }
+    );
+
+
+
+    /* ESC */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+
+                closeMenu();
+
+                notificationPanel.classList.remove(
+                    "active"
+                );
+
+                closeLanguage();
+
+                settingsPanel.classList.remove(
+                    "active"
                 );
 
             }
+
+        }
+    );
+
+
+
+    /* LOAD TEXT SIZE */
+
+    const savedTextSize =
+        localStorage.getItem(
+            "websiteTextSize"
         );
 
 
-        /* =====================================================
-           ESC KEY
-        ====================================================== */
+    if (savedTextSize === "small") {
 
-        document.addEventListener(
-            "keydown",
-            function(event) {
+        document.documentElement.style.fontSize =
+            "14px";
 
-                if (
-                    event.key === "Escape"
-                ) {
+    }
 
-                    languagePopup.classList.remove(
-                        "active"
-                    );
+    if (savedTextSize === "medium") {
 
-                }
+        document.documentElement.style.fontSize =
+            "16px";
 
-            }
-        );
+    }
 
+    if (savedTextSize === "large") {
 
-        /* =====================================================
-           INITIAL LOAD
-        ====================================================== */
+        document.documentElement.style.fontSize =
+            "18px";
 
-        currentLanguageText.textContent =
-            getNativeLanguageName(
-                currentLanguage
-            );
+    }
+
+</script>
 
 
-        createLanguageList();
-
-
-    </script>
-
-
-    <!-- =====================================================
-         MAIN SCRIPT
-    ====================================================== -->
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 
 </body>

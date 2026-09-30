@@ -576,4 +576,71 @@ if (
         "normal"
     );
 
+}/* =========================================
+   HEADER THEME SYSTEM
+========================================= */
+
+const darkModeButton = document.getElementById("darkMode");
+const lightModeButton = document.getElementById("lightMode");
+
+function applyWebsiteTheme(theme) {
+
+    if (theme === "light") {
+
+        document.body.classList.add("light-theme");
+
+        if (lightModeButton) {
+            lightModeButton.classList.add("active");
+        }
+
+        if (darkModeButton) {
+            darkModeButton.classList.remove("active");
+        }
+
+    } else {
+
+        document.body.classList.remove("light-theme");
+
+        if (darkModeButton) {
+            darkModeButton.classList.add("active");
+        }
+
+        if (lightModeButton) {
+            lightModeButton.classList.remove("active");
+        }
+    }
+
+    localStorage.setItem("websiteTheme", theme);
 }
+
+
+/* Dark */
+
+if (darkModeButton) {
+
+    darkModeButton.addEventListener("click", function () {
+
+        applyWebsiteTheme("dark");
+
+    });
+}
+
+
+/* Light */
+
+if (lightModeButton) {
+
+    lightModeButton.addEventListener("click", function () {
+
+        applyWebsiteTheme("light");
+
+    });
+}
+
+
+/* Saved Theme */
+
+const savedTheme =
+    localStorage.getItem("websiteTheme") || "dark";
+
+applyWebsiteTheme(savedTheme);

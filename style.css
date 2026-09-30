@@ -4871,4 +4871,123 @@ body.light-theme .updates-note {
 
 .chapter-notes-content .notes-card h2 {
     margin-bottom: 14px;
+}/* =========================================
+   HEADER THEME SWITCH
+========================================= */
+
+.header-theme {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.header-theme-btn {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: #aaa;
+    padding: 8px 12px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.25s ease;
+}
+
+.header-theme-btn:hover {
+    border-color: #00aaff;
+    color: #fff;
+}
+
+.header-theme-btn.active {
+    background: #00aaff;
+    border-color: #00aaff;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.20);
+}
+
+/* Light Theme */
+
+body.light-theme {
+    background: #f4f6f8;
+    color: #151515;
+}
+
+body.light-theme .header {
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom-color: #ddd;
+}
+
+body.light-theme .logo {
+    color: #111;
+}
+
+body.light-theme .navbar a {
+    color: #333;
+}
+
+body.light-theme .navbar a:hover {
+    color: #008dcc;
+}
+
+/* Light theme common sections */
+
+body.light-theme .hero,
+body.light-theme .boards-section,
+body.light-theme .features-section,
+body.light-theme .support-section {
+    background-color: #f4f6f8;
+    color: #151515;
+}
+
+body.light-theme .section-heading h2,
+body.light-theme .hero h1,
+body.light-theme .feature-card h3,
+body.light-theme .support-box h2 {
+    color: #111;
+}
+
+body.light-theme .section-heading p,
+body.light-theme .hero p,
+body.light-theme .feature-card p,
+body.light-theme .support-box p {
+    color: #555;
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+
+    .header-theme {
+        margin-right: 8px;
+        gap: 4px;
+    }
+
+    .header-theme-btn {
+        padding: 7px 8px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .header-theme {
+        margin-right: 5px;
+    }
+
+    .header-theme-btn {
+        font-size: 0;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-theme-btn:first-child::first-letter,
+    .header-theme-btn:last-child::first-letter {
+        font-size: 16px;
+    }
 }
